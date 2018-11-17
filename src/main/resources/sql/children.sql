@@ -1,7 +1,7 @@
 /**
   初始化数据库表
   建立网站相关数据库内容
-
+  三个表，一个用于存放地点信息，一个存放用户信息，一个存放需求信息
 
  */
 
@@ -20,7 +20,7 @@ CREATE TABLE `user`(
   `email` varchar(30) NOT NULL ,
   `register_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP  COMMENT '注册时间',
   PRIMARY KEY (`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=UTF8MB4 COMMENT '用户信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=UTF8MB4 COMMENT '用户信息表';
 
 
 
@@ -37,7 +37,25 @@ CREATE TABLE `point`(
   `detail` varchar(255) NOT NULL COMMENT '审核说明',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '申请时间',
   PRIMARY KEY (`pid`,`uid`)
-)ENGINE = InnoDB AUTO_INCREMENT = 2 DEFAULT CHARSET = UTF8MB4 COMMENT '服务点表';
+)ENGINE = InnoDB AUTO_INCREMENT = 10 DEFAULT CHARSET = UTF8MB4 COMMENT '服务点表';
+
+
+CREATE TABLE `demand`(
+  `did` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL ,
+  `detail` varchar(255) NOT NULL COMMENT '需求信息',
+  PRIMARY KEY(`did`)
+)ENGINE = InnoDB AUTO_INCREMENT = 6 DEFAULT CHARSET = UTF8MB4 COMMENT '需求信息表';
+
+
+-- 需求信息初始化
+INSERT INTO `demand` VALUES ('1','1','需要两条被子');
+INSERT INTO `demand` VALUES ('2','3','需要一部手机');
+INSERT INTO `demand` VALUES ('3','6','需要三台电脑');
+INSERT INTO `demand` VALUES ('4','3','需要一位教师');
+INSERT INTO `demand` VALUES ('5','8','需要10000元');
+
+SELECT * FROM demand;
 
 -- point 初始化
 INSERT INTO `point` VALUES ('1','2','志新小区','北京市海淀区','60.23','12.87','北京市','贫穷', 0,  '正在审核',CURRENT_TIMESTAMP );
@@ -49,6 +67,7 @@ INSERT INTO `point` VALUES ('6','8','阿萨小区','北京市海淀区','60.23',
 INSERT INTO `point` VALUES ('7','3','网络小区','北京市海淀区','60.23','12.87','北京市','贫穷', -1, '未通过',CURRENT_TIMESTAMP );
 INSERT INTO `point` VALUES ('8','5','破损小区','北京市海淀区','60.23','12.87','北京市','贫穷', 0,  '正在审核',CURRENT_TIMESTAMP );
 INSERT INTO `point` VALUES ('9','9','农业小区','北京市海淀区','60.23','12.87','北京市','贫穷', 1,  '通过',CURRENT_TIMESTAMP );
+
 select * FROM point;
 
 
