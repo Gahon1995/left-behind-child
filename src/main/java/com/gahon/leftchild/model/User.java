@@ -1,5 +1,7 @@
 package com.gahon.leftchild.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.util.Date;
@@ -16,7 +18,7 @@ public class User {
     private Integer uid;
 
     private String username;
-
+    @JsonIgnore
     private String password;
 
     /**
