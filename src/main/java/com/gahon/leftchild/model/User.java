@@ -1,8 +1,13 @@
 package com.gahon.leftchild.model;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
 import java.util.Date;
-import javax.persistence.*;
 
+/**
+ * @author Gahon
+ * @date 2018/11/17.
+ */
 public class User {
     /**
      * 负责人uid
