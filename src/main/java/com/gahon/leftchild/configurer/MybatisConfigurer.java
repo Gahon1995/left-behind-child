@@ -1,4 +1,4 @@
-package com.company.project.configurer;
+package com.gahon.leftchild.configurer;
 
 
 import com.github.pagehelper.PageHelper;
@@ -15,7 +15,7 @@ import tk.mybatis.spring.mapper.MapperScannerConfigurer;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-import static com.company.project.core.ProjectConstant.*;
+import static com.gahon.leftchild.core.ProjectConstant.*;
 
 /**
  * Mybatis & Mapper & PageHelper 配置

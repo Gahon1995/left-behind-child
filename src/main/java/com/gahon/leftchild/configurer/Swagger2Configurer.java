@@ -1,6 +1,6 @@
-package com.company.project.configurer;
+package com.gahon.leftchild.configurer;
 
-import com.company.project.core.ProjectConstant;
+import com.gahon.leftchild.core.ProjectConstant;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
