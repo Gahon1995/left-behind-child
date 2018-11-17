@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * @author Gahon
- * @date 2018/11/17.
+ * @date 2018/11/18.
  */
 @RestController
 @RequestMapping("/demand")
@@ -38,7 +38,6 @@ public class DemandController {
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }
-
     @PostMapping
     @ApiOperation(value = "添加数据", notes = "添加新的数据", httpMethod = "POST")
     @ApiImplicitParams({

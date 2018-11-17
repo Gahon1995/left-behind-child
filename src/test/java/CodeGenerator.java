@@ -18,10 +18,10 @@ import static com.gahon.leftchild.core.ProjectConstant.*;
  */
 public class CodeGenerator {
     //JDBC配置，请修改为你项目的实际配置
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/children_db";
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/children_db?serverTimezone=GMT%2B8";
     private static final String JDBC_USERNAME = "root";
     private static final String JDBC_PASSWORD = "gh123456";
-    private static final String JDBC_DIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
+    private static final String JDBC_DIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
 
     private static final String PROJECT_PATH = System.getProperty("user.dir");//项目在硬盘上的基础路径
     private static final String TEMPLATE_FILE_PATH = PROJECT_PATH + "/src/test/resources/generator/template";//模板位置

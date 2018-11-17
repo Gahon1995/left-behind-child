@@ -1,5 +1,6 @@
 package com.gahon.leftchild.service.impl;
 
+import com.gahon.leftchild.core.ServiceException;
 import com.gahon.leftchild.dao.DemandMapper;
 import com.gahon.leftchild.model.Demand;
 import com.gahon.leftchild.service.DemandService;
@@ -12,10 +13,10 @@ import javax.annotation.Resource;
 
 /**
  * @author Gahon
- * @date 2018/11/17.
+ * @date 2018/11/18.
  */
 @Service
-@Transactional
+@Transactional(rollbackFor = ServiceException.class)
 public class DemandServiceImpl extends AbstractService<Demand> implements DemandService {
     @Resource
     private DemandMapper demandMapper;
