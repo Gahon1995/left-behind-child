@@ -1,0 +1,67 @@
+/**
+  初始化数据库表
+  建立网站相关数据库内容
+
+
+ */
+
+DROP DATABASE IF EXISTS `CHILDREN_DB`;
+CREATE DATABASE CHILDREN_DB;
+USE  CHILDREN_DB;
+
+-- 用户表
+
+CREATE TABLE `user`(
+  `uid` int(11) NOT NULL AUTO_INCREMENT COMMENT '负责人uid',
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `sex` int(1) DEFAULT NULL COMMENT '性别：0-女，1-男',
+  `phone` varchar(30) NOT NULL,
+  `email` varchar(30) NOT NULL ,
+  `register_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP  COMMENT '注册时间',
+  PRIMARY KEY (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=UTF8MB4 COMMENT '用户信息表';
+
+
+
+CREATE TABLE `point`(
+  `pid` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL COMMENT '负责人uid',
+  `title` varchar(255) NOT NULL COMMENT '服务点名称',
+  `address` varchar(255) NOT NULL COMMENT '地址',
+  `lat` varchar(255) NOT NULL COMMENT '纬度',
+  `lng` varchar(255) NOT NULL COMMENT '经度',
+  `city` varchar(120) NOT NULL COMMENT '该点所属城市',
+  `describe` varchar(255) NOT NULL COMMENT '该服务点的描述',
+  `state` int(4) DEFAULT 0 COMMENT '审核状态：0正在审核，1通过审核，-1审核不通过',
+  `detail` varchar(255) NOT NULL COMMENT '审核说明',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '申请时间',
+  PRIMARY KEY (`pid`,`uid`)
+)ENGINE = InnoDB AUTO_INCREMENT = 2 DEFAULT CHARSET = UTF8MB4 COMMENT '服务点表';
+
+-- point 初始化
+INSERT INTO `point` VALUES ('1','2','志新小区','北京市海淀区','60.23','12.87','北京市','贫穷', 0,  '正在审核',CURRENT_TIMESTAMP );
+INSERT INTO `point` VALUES ('2','3','海淀小区','北京市海淀区','58.57','12.87','北京市','贫穷', 1,  '通过',CURRENT_TIMESTAMP );
+INSERT INTO `point` VALUES ('3','1','龙泉小区','北京市海淀区','45.57','12.87','北京市','贫穷', 0,  '正在审核',CURRENT_TIMESTAMP );
+INSERT INTO `point` VALUES ('4','7','夏季小区','北京市海淀区','60.23','12.87','北京市','贫穷', 0,  '正在审核',CURRENT_TIMESTAMP );
+INSERT INTO `point` VALUES ('5','2','良心小区','北京市海淀区','60.23','12.87','北京市','贫穷', 0,  '正在审核',CURRENT_TIMESTAMP );
+INSERT INTO `point` VALUES ('6','8','阿萨小区','北京市海淀区','60.23','12.87','北京市','贫穷', 0,  '正在审核',CURRENT_TIMESTAMP );
+INSERT INTO `point` VALUES ('7','3','网络小区','北京市海淀区','60.23','12.87','北京市','贫穷', -1, '未通过',CURRENT_TIMESTAMP );
+INSERT INTO `point` VALUES ('8','5','破损小区','北京市海淀区','60.23','12.87','北京市','贫穷', 0,  '正在审核',CURRENT_TIMESTAMP );
+INSERT INTO `point` VALUES ('9','9','农业小区','北京市海淀区','60.23','12.87','北京市','贫穷', 1,  '通过',CURRENT_TIMESTAMP );
+select * FROM point;
+
+
+-- user初始化
+INSERT INTO `user` VALUES ('1', '张三', '123456', '1',  '123456789', '1@qq.com', '2017-06-23 14:24:23');
+INSERT INTO `user` VALUES ('2', '李四', '123456',  '1', '123456789', '2@qq.com', '2017-06-23 14:24:23');
+INSERT INTO `user` VALUES ('3', '王五', '123456',  '0', '123456789', '3@qq.com', '2017-06-23 14:24:23');
+INSERT INTO `user` VALUES ('4', '老赵', '123456',  '1', '123456789', '4@qq.com', '2017-06-23 14:24:23');
+INSERT INTO `user` VALUES ('5', '小刘', '123456',  '1', '123456789', '5@qq.com', '2017-06-23 14:24:23');
+INSERT INTO `user` VALUES ('6', '老李', '123456',  '0', '123456789', '6@qq.com', '2017-06-23 14:24:23');
+INSERT INTO `user` VALUES ('7', '老徐', '123456',  '1', '123456789', '7@qq.com', '2017-06-23 14:24:23');
+INSERT INTO `user` VALUES ('8', '刘琦', '123456',  '1', '123456789', '8@qq.com', '2017-06-23 14:24:23');
+INSERT INTO `user` VALUES ('9', '顾屿', '123456',  '1', '123456789', '9@qq.com', '2017-06-23 14:24:23');
+INSERT INTO `user` VALUES ('10','刘思', '123456',  '0', '123456789', '10@qq.com','2017-06-23 14:24:23');
+
+SELECT * FROM user;

@@ -33,7 +33,7 @@ public class CodeGenerator {
     private static final String PACKAGE_PATH_SERVICE_IMPL = packageConvertPath(SERVICE_IMPL_PACKAGE);//生成的Service实现存放路径
     private static final String PACKAGE_PATH_CONTROLLER = packageConvertPath(CONTROLLER_PACKAGE);//生成的Controller存放路径
 
-    private static final String AUTHOR = "CodeGenerator";//@author
+    private static final String AUTHOR = "Gahon";//@author
     private static final String DATE = new SimpleDateFormat("yyyy/MM/dd").format(new Date());//@date
 
     public static void main(String[] args) {
@@ -46,7 +46,7 @@ public class CodeGenerator {
      * 如输入表名称 "t_user_detail" 将生成 TUserDetail、TUserDetailMapper、TUserDetailService ...
      * @param tableNames 数据表名称...
      */
-    public static void genCode(String... tableNames) {
+    private static void genCode(String... tableNames) {
         for (String tableName : tableNames) {
             genCodeByCustomModelName(tableName, null);
         }
@@ -58,14 +58,14 @@ public class CodeGenerator {
      * @param tableName 数据表名称
      * @param modelName 自定义的 Model 名称
      */
-    public static void genCodeByCustomModelName(String tableName, String modelName) {
+    private static void genCodeByCustomModelName(String tableName, String modelName) {
         genModelAndMapper(tableName, modelName);
         genService(tableName, modelName);
         genController(tableName, modelName);
     }
 
 
-    public static void genModelAndMapper(String tableName, String modelName) {
+    private static void genModelAndMapper(String tableName, String modelName) {
         Context context = new Context(ModelType.FLAT);
         context.setId("Potato");
         context.setTargetRuntime("MyBatis3Simple");
@@ -115,7 +115,7 @@ public class CodeGenerator {
 
             boolean overwrite = true;
             DefaultShellCallback callback = new DefaultShellCallback(overwrite);
-            warnings = new ArrayList<String>();
+            warnings = new ArrayList<>();
             generator = new MyBatisGenerator(config, callback, warnings);
             generator.generate(null);
         } catch (Exception e) {
@@ -131,7 +131,7 @@ public class CodeGenerator {
         System.out.println(modelName + "Mapper.xml 生成成功");
     }
 
-    public static void genService(String tableName, String modelName) {
+    private static void genService(String tableName, String modelName) {
         try {
             freemarker.template.Configuration cfg = getConfiguration();
 
@@ -145,7 +145,7 @@ public class CodeGenerator {
 
             File file = new File(PROJECT_PATH + JAVA_PATH + PACKAGE_PATH_SERVICE + modelNameUpperCamel + "Service.java");
             if (!file.getParentFile().exists()) {
-                file.getParentFile().mkdirs();
+                boolean i = file.getParentFile().mkdirs();
             }
             cfg.getTemplate("service.ftl").process(data,
                     new FileWriter(file));
@@ -153,7 +153,7 @@ public class CodeGenerator {
 
             File file1 = new File(PROJECT_PATH + JAVA_PATH + PACKAGE_PATH_SERVICE_IMPL + modelNameUpperCamel + "ServiceImpl.java");
             if (!file1.getParentFile().exists()) {
-                file1.getParentFile().mkdirs();
+                boolean i =file1.getParentFile().mkdirs();
             }
             cfg.getTemplate("service-impl.ftl").process(data,
                     new FileWriter(file1));
@@ -163,7 +163,7 @@ public class CodeGenerator {
         }
     }
 
-    public static void genController(String tableName, String modelName) {
+    private static void genController(String tableName, String modelName) {
         try {
             freemarker.template.Configuration cfg = getConfiguration();
 
@@ -179,7 +179,7 @@ public class CodeGenerator {
 
             File file = new File(PROJECT_PATH + JAVA_PATH + PACKAGE_PATH_CONTROLLER + modelNameUpperCamel + "Controller.java");
             if (!file.getParentFile().exists()) {
-                file.getParentFile().mkdirs();
+                boolean i = file.getParentFile().mkdirs();
             }
             cfg.getTemplate("controller-restful.ftl").process(data, new FileWriter(file));
             //cfg.getTemplate("controller.ftl").process(data, new FileWriter(file))
