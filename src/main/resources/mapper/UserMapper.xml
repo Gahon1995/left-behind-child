@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gahon.leftchild.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="com.gahon.leftchild.model.User">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="uid" jdbcType="INTEGER" property="uid"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="sex" jdbcType="INTEGER" property="sex"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="register_date" jdbcType="TIMESTAMP" property="registerDate"/>
+    </resultMap>
+</mapper>

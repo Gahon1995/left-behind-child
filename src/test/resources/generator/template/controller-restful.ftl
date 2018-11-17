@@ -16,8 +16,9 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
-* Created by ${author} on ${date}.
-*/
+ * @author ${author}
+ * @date ${date}.
+ */
 @RestController
 @RequestMapping("${baseRequestMapping}")
 @Api(value = "${modelNameUpperCamel}控制类", description = "控制类接口测试")

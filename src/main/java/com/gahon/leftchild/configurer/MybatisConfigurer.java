@@ -20,6 +20,7 @@ import static com.gahon.leftchild.core.ProjectConstant.*;
 /**
  * Mybatis & Mapper & PageHelper 配置
  * @author Gahon
+ * @date 2018/11/17.
  */
 @Configuration
 public class MybatisConfigurer {

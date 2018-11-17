@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gahon.leftchild.dao.DemandMapper">
+    <resultMap id="BaseResultMap" type="com.gahon.leftchild.model.Demand">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="did" jdbcType="INTEGER" property="did"/>
+        <result column="uid" jdbcType="INTEGER" property="uid"/>
+        <result column="detail" jdbcType="VARCHAR" property="detail"/>
+    </resultMap>
+</mapper>

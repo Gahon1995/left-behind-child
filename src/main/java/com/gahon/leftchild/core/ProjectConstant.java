@@ -3,6 +3,8 @@ package com.gahon.leftchild.core;
 /**
  * 项目常量
  * @author Gahon
+ * @author Gahon
+ * @date 2018/11/17.
  */
 public final class ProjectConstant {
     /**

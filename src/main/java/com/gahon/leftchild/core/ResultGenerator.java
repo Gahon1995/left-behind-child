@@ -2,6 +2,8 @@ package com.gahon.leftchild.core;
 
 /**
  * 响应结果生成工具
+ * @author Gahon
+ * @date 2018/11/17.
  */
 public class ResultGenerator {
     private static final String DEFAULT_SUCCESS_MESSAGE = "SUCCESS";

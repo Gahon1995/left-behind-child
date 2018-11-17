@@ -14,6 +14,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 
 /**
  * @author Gahon
+ * @date 2018/11/17.
  */
 @Configuration
 public class Swagger2Configurer implements WebMvcConfigurer {
