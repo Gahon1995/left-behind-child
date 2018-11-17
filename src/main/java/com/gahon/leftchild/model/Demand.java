@@ -1,6 +1,6 @@
 package com.gahon.leftchild.model;
 
-import javax.persistence.*;
+import javax.persistence.Id;
 
 public class Demand {
     @Id

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 
 /**
  * 统一API响应结果封装
+ *
  * @author Gahon
  * @date 2018/11/17.
  */
@@ -12,13 +13,13 @@ public class Result<T> {
     private String message;
     private T data;
 
+    public int getCode() {
+        return code;
+    }
+
     public Result setCode(ResultCode resultCode) {
         this.code = resultCode.code();
         return this;
-    }
-
-    public int getCode() {
-        return code;
     }
 
     public String getMessage() {

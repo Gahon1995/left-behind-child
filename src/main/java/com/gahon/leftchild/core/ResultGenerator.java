@@ -2,6 +2,7 @@ package com.gahon.leftchild.core;
 
 /**
  * 响应结果生成工具
+ *
  * @author Gahon
  * @date 2018/11/17.
  */

@@ -15,10 +15,12 @@ import tk.mybatis.spring.mapper.MapperScannerConfigurer;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-import static com.gahon.leftchild.core.ProjectConstant.*;
+import static com.gahon.leftchild.core.ProjectConstant.MAPPER_PACKAGE;
+import static com.gahon.leftchild.core.ProjectConstant.MODEL_PACKAGE;
 
 /**
  * Mybatis & Mapper & PageHelper 配置
+ *
  * @author Gahon
  * @date 2018/11/17.
  */

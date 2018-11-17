@@ -2,6 +2,7 @@ package com.gahon.leftchild.core;
 
 /**
  * 响应码枚举，参考HTTP状态码的语义
+ *
  * @author Gahon
  * @date 2018/11/17.
  */

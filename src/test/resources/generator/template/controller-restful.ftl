@@ -44,7 +44,7 @@ public class ${modelNameUpperCamel}Controller {
             @ApiImplicitParam(name = "${modelNameLowerCamel}",value = "待添加的${modelNameLowerCamel}实例",paramType = "body",dataType = "${modelNameUpperCamel}",required = true)
     })
     public Result add(@RequestBody ${modelNameUpperCamel} ${modelNameLowerCamel}) {
-        ${modelNameLowerCamel}Service.save(${modelNameLowerCamel});
+${modelNameLowerCamel}Service.save(${modelNameLowerCamel});
         return ResultGenerator.genSuccessResult();
     }
 
@@ -54,7 +54,7 @@ public class ${modelNameUpperCamel}Controller {
             @ApiImplicitParam(name = "id",value = "查询的id", paramType = "path",required = true,dataType = "Integer"),
     })
     public Result delete(@PathVariable Integer id) {
-        ${modelNameLowerCamel}Service.deleteById(id);
+${modelNameLowerCamel}Service.deleteById(id);
         return ResultGenerator.genSuccessResult();
     }
 
@@ -64,7 +64,7 @@ public class ${modelNameUpperCamel}Controller {
             @ApiImplicitParam(name = "${modelNameLowerCamel}",value = "更新的${modelNameLowerCamel}实例",paramType = "body",dataType = "${modelNameUpperCamel}",required = true)
     })
     public Result update(@RequestBody ${modelNameUpperCamel} ${modelNameLowerCamel}) {
-        ${modelNameLowerCamel}Service.update(${modelNameLowerCamel});
+${modelNameLowerCamel}Service.update(${modelNameLowerCamel});
         return ResultGenerator.genSuccessResult();
     }
 
@@ -74,7 +74,7 @@ public class ${modelNameUpperCamel}Controller {
             @ApiImplicitParam(name = "id",value = "查询的id", paramType = "path",required = true,dataType = "Integer",defaultValue = "0")
     })
     public Result detail(@PathVariable Integer id) {
-        ${modelNameUpperCamel} ${modelNameLowerCamel} = ${modelNameLowerCamel}Service.findById(id);
+${modelNameUpperCamel} ${modelNameLowerCamel} = ${modelNameLowerCamel}Service.findById(id);
         return ResultGenerator.genSuccessResult(${modelNameLowerCamel});
     }
 
