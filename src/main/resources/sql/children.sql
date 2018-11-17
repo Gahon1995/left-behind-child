@@ -25,18 +25,20 @@ CREATE TABLE `user`(
 
 
 CREATE TABLE `point`(
-  `pid` int(11) NOT NULL AUTO_INCREMENT,
-  `uid` int(11) NOT NULL COMMENT '负责人uid',
-  `title` varchar(255) NOT NULL COMMENT '服务点名称',
-  `address` varchar(255) NOT NULL COMMENT '地址',
-  `lat` varchar(255) NOT NULL COMMENT '纬度',
-  `lng` varchar(255) NOT NULL COMMENT '经度',
-  `city` varchar(120) NOT NULL COMMENT '该点所属城市',
-  `describe` varchar(255) NOT NULL COMMENT '该服务点的描述',
-  `state` int(4) DEFAULT 0 COMMENT '审核状态：0正在审核，1通过审核，-1审核不通过',
-  `detail` varchar(255) NOT NULL COMMENT '审核说明',
-  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '申请时间',
-  PRIMARY KEY (`pid`,`uid`)
+  `pid`         int(11)      NOT NULL AUTO_INCREMENT,
+  `uid`         int(11)      NOT NULL COMMENT '负责人uid',
+  `vid`         int(11)      NOT NULL DEFAULT 0
+  COMMENT '帮扶人id，默认0-无人帮扶',
+  `title`       varchar(255) NOT NULL COMMENT '服务点名称',
+  `address`     varchar(255) NOT NULL COMMENT '地址',
+  `lat`         varchar(255) NOT NULL COMMENT '纬度',
+  `lng`         varchar(255) NOT NULL COMMENT '经度',
+  `city`        varchar(120) NOT NULL COMMENT '该点所属城市',
+  `describe`    varchar(255) NOT NULL COMMENT '该服务点的描述',
+  `state`       int(4)                DEFAULT 0 COMMENT '审核状态：0正在审核，1通过审核，-1审核不通过',
+  `detail`      varchar(255) NOT NULL COMMENT '审核说明',
+  `create_time` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '申请时间',
+  PRIMARY KEY (`pid`)
 )ENGINE = InnoDB AUTO_INCREMENT = 10 DEFAULT CHARSET = UTF8MB4 COMMENT '服务点表';
 
 
@@ -58,15 +60,24 @@ INSERT INTO `demand` VALUES ('5','8','需要10000元');
 SELECT * FROM demand;
 
 -- point 初始化
-INSERT INTO `point` VALUES ('1','2','志新小区','北京市海淀区','60.23','12.87','北京市','贫穷', 0,  '正在审核',CURRENT_TIMESTAMP );
-INSERT INTO `point` VALUES ('2','3','海淀小区','北京市海淀区','58.57','12.87','北京市','贫穷', 1,  '通过',CURRENT_TIMESTAMP );
-INSERT INTO `point` VALUES ('3','1','龙泉小区','北京市海淀区','45.57','12.87','北京市','贫穷', 0,  '正在审核',CURRENT_TIMESTAMP );
-INSERT INTO `point` VALUES ('4','7','夏季小区','北京市海淀区','60.23','12.87','北京市','贫穷', 0,  '正在审核',CURRENT_TIMESTAMP );
-INSERT INTO `point` VALUES ('5','2','良心小区','北京市海淀区','60.23','12.87','北京市','贫穷', 0,  '正在审核',CURRENT_TIMESTAMP );
-INSERT INTO `point` VALUES ('6','8','阿萨小区','北京市海淀区','60.23','12.87','北京市','贫穷', 0,  '正在审核',CURRENT_TIMESTAMP );
-INSERT INTO `point` VALUES ('7','3','网络小区','北京市海淀区','60.23','12.87','北京市','贫穷', -1, '未通过',CURRENT_TIMESTAMP );
-INSERT INTO `point` VALUES ('8','5','破损小区','北京市海淀区','60.23','12.87','北京市','贫穷', 0,  '正在审核',CURRENT_TIMESTAMP );
-INSERT INTO `point` VALUES ('9','9','农业小区','北京市海淀区','60.23','12.87','北京市','贫穷', 1,  '通过',CURRENT_TIMESTAMP );
+INSERT INTO `point`
+VALUES ('1', '2', '0', '志新小区', '北京市海淀区', '60.23', '12.87', '北京市', '贫穷', 0, '正在审核', CURRENT_TIMESTAMP);
+INSERT INTO `point`
+VALUES ('2', '3', '3', '海淀小区', '北京市海淀区', '58.57', '12.87', '北京市', '贫穷', 1, '通过', CURRENT_TIMESTAMP);
+INSERT INTO `point`
+VALUES ('3', '1', '5', '龙泉小区', '北京市海淀区', '45.57', '12.87', '北京市', '贫穷', 0, '正在审核', CURRENT_TIMESTAMP);
+INSERT INTO `point`
+VALUES ('4', '7', '0', '夏季小区', '北京市海淀区', '60.23', '12.87', '北京市', '贫穷', 0, '正在审核', CURRENT_TIMESTAMP);
+INSERT INTO `point`
+VALUES ('5', '2', '0', '良心小区', '北京市海淀区', '60.23', '12.87', '北京市', '贫穷', 0, '正在审核', CURRENT_TIMESTAMP);
+INSERT INTO `point`
+VALUES ('6', '8', '2', '阿萨小区', '北京市海淀区', '60.23', '12.87', '北京市', '贫穷', 0, '正在审核', CURRENT_TIMESTAMP);
+INSERT INTO `point`
+VALUES ('7', '3', '0', '网络小区', '北京市海淀区', '60.23', '12.87', '北京市', '贫穷', -1, '未通过', CURRENT_TIMESTAMP);
+INSERT INTO `point`
+VALUES ('8', '5', '4', '破损小区', '北京市海淀区', '60.23', '12.87', '北京市', '贫穷', 0, '正在审核', CURRENT_TIMESTAMP);
+INSERT INTO `point`
+VALUES ('9', '9', '0', '农业小区', '北京市海淀区', '60.23', '12.87', '北京市', '贫穷', 1, '通过', CURRENT_TIMESTAMP);
 
 select * FROM point;
 

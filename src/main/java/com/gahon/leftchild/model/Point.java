@@ -16,7 +16,10 @@ public class Point {
      * 负责人uid
      */
     private Integer uid;
-
+    /**
+     * 帮扶人uid
+     */
+    private Integer vid;
     /**
      * 服务点名称
      */
@@ -93,6 +96,25 @@ public class Point {
      */
     public void setUid(Integer uid) {
         this.uid = uid;
+    }
+
+
+    /**
+     * 获取负责人vid
+     *
+     * @return vid - 负责人vid
+     */
+    public Integer getVid() {
+        return vid;
+    }
+
+    /**
+     * 设置负责人vid
+     *
+     * @param vid 负责人vid
+     */
+    public void setVid(Integer vid) {
+        this.vid = vid;
     }
 
     /**
