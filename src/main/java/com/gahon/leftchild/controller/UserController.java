@@ -2,7 +2,7 @@ package com.gahon.leftchild.controller;
 
 import com.gahon.leftchild.core.Result;
 import com.gahon.leftchild.core.ResultGenerator;
-import com.gahon.leftchild.model.User;
+import com.gahon.leftchild.bean.User;
 import com.gahon.leftchild.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -10,6 +10,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -20,9 +22,11 @@ import java.util.List;
  * @date 2018/11/17.
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/admin/user")
 @Api(value = "User控制类", description = "控制类接口测试")
 public class UserController {
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Resource
     private UserService userService;
 
@@ -32,10 +36,10 @@ public class UserController {
             @ApiImplicitParam(name = "page", value = "查询页码", paramType = "query", dataType = "Integer", defaultValue = "0"),
             @ApiImplicitParam(name = "size", value = "每页数据量", paramType = "query", dataType = "Integer", defaultValue = "0")
     })
-    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
+    public Result<PageInfo<User>> list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
         List<User> list = userService.findAll();
-        PageInfo pageInfo = new PageInfo(list);
+        PageInfo<User> pageInfo = new PageInfo<>(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }
 
@@ -45,6 +49,7 @@ public class UserController {
             @ApiImplicitParam(name = "user", value = "待添加的user实例", paramType = "body", dataType = "User", required = true)
     })
     public Result add(@RequestBody User user) {
+        logger.info("##--add user--##: {}", user.getUsername());
         userService.save(user);
         return ResultGenerator.genSuccessResult();
     }
@@ -74,7 +79,7 @@ public class UserController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "查询的id", paramType = "path", required = true, dataType = "Integer", defaultValue = "0")
     })
-    public Result detail(@PathVariable Integer id) {
+    public Result<User> detail(@PathVariable Integer id) {
         User user = userService.findById(id);
         return ResultGenerator.genSuccessResult(user);
     }

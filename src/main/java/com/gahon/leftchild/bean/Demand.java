@@ -1,9 +1,13 @@
-package com.gahon.leftchild.model;
+package com.gahon.leftchild.bean;
+
+import tk.mybatis.mapper.annotation.KeySql;
+import tk.mybatis.mapper.code.IdentityDialect;
 
 import javax.persistence.Id;
 
 public class Demand {
     @Id
+    @KeySql(dialect = IdentityDialect.MYSQL)
     private Integer did;
 
     private Integer uid;
@@ -57,5 +61,14 @@ public class Demand {
      */
     public void setDetail(String detail) {
         this.detail = detail;
+    }
+
+    @Override
+    public String toString() {
+        return "Demand{" +
+                "did=" + did +
+                ", uid=" + uid +
+                ", detail='" + detail + '\'' +
+                '}';
     }
 }

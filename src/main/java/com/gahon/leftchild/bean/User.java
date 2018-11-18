@@ -1,6 +1,9 @@
-package com.gahon.leftchild.model;
+package com.gahon.leftchild.bean;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import tk.mybatis.mapper.annotation.KeySql;
+import tk.mybatis.mapper.code.IdentityDialect;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -15,10 +18,12 @@ public class User {
      * 负责人uid
      */
     @Id
+    @KeySql(dialect = IdentityDialect.MYSQL)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer uid;
 
     private String username;
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     /**
@@ -34,7 +39,21 @@ public class User {
      * 注册时间
      */
     @Column(name = "register_date")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date registerDate;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "uid=" + uid +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", sex=" + sex +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", registerDate=" + registerDate +
+                '}';
+    }
 
     /**
      * 获取负责人uid

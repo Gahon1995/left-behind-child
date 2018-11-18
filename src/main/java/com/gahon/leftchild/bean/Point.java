@@ -1,4 +1,8 @@
-package com.gahon.leftchild.model;
+package com.gahon.leftchild.bean;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import tk.mybatis.mapper.annotation.KeySql;
+import tk.mybatis.mapper.code.IdentityDialect;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -10,6 +14,7 @@ import java.util.Date;
  */
 public class Point {
     @Id
+    @KeySql(dialect = IdentityDialect.MYSQL)
     private Integer pid;
 
     /**
@@ -64,7 +69,26 @@ public class Point {
      * 申请时间
      */
     @Column(name = "create_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
+
+    @Override
+    public String toString() {
+        return "Point{" +
+                "pid=" + pid +
+                ", uid=" + uid +
+                ", vid=" + vid +
+                ", title='" + title + '\'' +
+                ", address='" + address + '\'' +
+                ", lat='" + lat + '\'' +
+                ", lng='" + lng + '\'' +
+                ", city='" + city + '\'' +
+                ", describe='" + describe + '\'' +
+                ", state=" + state +
+                ", detail='" + detail + '\'' +
+                ", createTime=" + createTime +
+                '}';
+    }
 
     /**
      * @return pid

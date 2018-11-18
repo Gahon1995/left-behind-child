@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gahon.leftchild.dao.PointMapper">
-    <resultMap id="BaseResultMap" type="com.gahon.leftchild.model.Point">
+    <resultMap id="BaseResultMap" type="com.gahon.leftchild.bean.Point">
         <!--
           WARNING - @mbg.generated
         -->
         <id column="pid" jdbcType="INTEGER" property="pid"/>
         <id column="uid" jdbcType="INTEGER" property="uid"/>
+        <id column="vid" jdbcType="INTEGER" property="vid"/>
         <result column="title" jdbcType="VARCHAR" property="title"/>
         <result column="address" jdbcType="VARCHAR" property="address"/>
         <result column="lat" jdbcType="VARCHAR" property="lat"/>

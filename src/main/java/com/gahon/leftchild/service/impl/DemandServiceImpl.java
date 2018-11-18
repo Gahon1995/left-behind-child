@@ -3,7 +3,7 @@ package com.gahon.leftchild.service.impl;
 import com.gahon.leftchild.core.AbstractService;
 import com.gahon.leftchild.core.ServiceException;
 import com.gahon.leftchild.dao.DemandMapper;
-import com.gahon.leftchild.model.Demand;
+import com.gahon.leftchild.bean.Demand;
 import com.gahon.leftchild.service.DemandService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

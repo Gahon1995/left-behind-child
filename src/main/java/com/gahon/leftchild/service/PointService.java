@@ -1,7 +1,7 @@
 package com.gahon.leftchild.service;
 
 import com.gahon.leftchild.core.Service;
-import com.gahon.leftchild.model.Point;
+import com.gahon.leftchild.bean.Point;
 
 
 /**

@@ -15,7 +15,7 @@ public final class ProjectConstant {
     /**
      * 生成的Model所在包
      */
-    public static final String MODEL_PACKAGE = BASE_PACKAGE + ".model";
+    public static final String MODEL_PACKAGE = BASE_PACKAGE + ".bean";
     /**
      * 生成的Mapper所在包
      */

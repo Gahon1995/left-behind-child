@@ -2,7 +2,7 @@ package com.gahon.leftchild.controller;
 
 import com.gahon.leftchild.core.Result;
 import com.gahon.leftchild.core.ResultGenerator;
-import com.gahon.leftchild.model.Point;
+import com.gahon.leftchild.bean.Point;
 import com.gahon.leftchild.service.PointService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
