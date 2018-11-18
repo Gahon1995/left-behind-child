@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -27,8 +28,9 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
     @Override
     public User findByUserName(String username) {
         Example example = new Example(User.class);
-        example.createCriteria().andEqualTo("username", username);
-        return userMapper.selectOneByExample(example);
+        example.createCriteria().andCondition("lower(username)=", username.toLowerCase());
+        List<User> list = userMapper.selectByExample(example);
+        return list.isEmpty() ? null : list.get(0);
     }
 
 

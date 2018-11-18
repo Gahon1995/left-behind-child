@@ -32,10 +32,10 @@ public class DemandController {
             @ApiImplicitParam(name = "page", value = "查询页码", paramType = "query", dataType = "Integer", defaultValue = "0"),
             @ApiImplicitParam(name = "size", value = "每页数据量", paramType = "query", dataType = "Integer", defaultValue = "0")
     })
-    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
+    public Result<PageInfo<Demand>> list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
         List<Demand> list = demandService.findAll();
-        PageInfo pageInfo = new PageInfo(list);
+        PageInfo<Demand> pageInfo = new PageInfo<>(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }
 
@@ -74,7 +74,7 @@ public class DemandController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "查询的id", paramType = "path", required = true, dataType = "Integer", defaultValue = "0")
     })
-    public Result detail(@PathVariable Integer id) {
+    public Result<Demand> detail(@PathVariable Integer id) {
         Demand demand = demandService.findById(id);
         return ResultGenerator.genSuccessResult(demand);
     }

@@ -1,5 +1,8 @@
 package com.gahon.leftchild.controller;
 
+import com.gahon.leftchild.authorization.annotation.Authorization;
+import com.gahon.leftchild.authorization.annotation.CurrentUser;
+import com.gahon.leftchild.bean.User;
 import com.gahon.leftchild.core.Result;
 import com.gahon.leftchild.core.ResultGenerator;
 import com.gahon.leftchild.bean.Point;
@@ -10,6 +13,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -21,9 +26,12 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/point")
+@RequestMapping("/admin/point")
 @Api(value = "Point控制类", description = "控制类接口测试")
 public class PointController {
+
+    Logger logger = LoggerFactory.getLogger(PointController.class);
+
     @Resource
     private PointService pointService;
 
@@ -75,7 +83,9 @@ public class PointController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "查询的id", paramType = "path", required = true, dataType = "Integer", defaultValue = "0")
     })
-    public Result detail(@PathVariable Integer id) {
+    @Authorization
+    public Result detail(@PathVariable Integer id, @CurrentUser User user) {
+        logger.info("当前登录的用户： {}", user);
         Point point = pointService.findById(id);
         return ResultGenerator.genSuccessResult(point);
     }

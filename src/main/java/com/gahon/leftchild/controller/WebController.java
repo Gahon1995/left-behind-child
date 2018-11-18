@@ -3,8 +3,11 @@ package com.gahon.leftchild.controller;
 import com.gahon.leftchild.bean.User;
 import com.gahon.leftchild.core.Result;
 import com.gahon.leftchild.core.ResultGenerator;
+import com.gahon.leftchild.service.PointService;
 import com.gahon.leftchild.service.UserService;
+import com.gahon.leftchild.utils.Constants;
 import com.gahon.leftchild.utils.DataCheck;
+import com.gahon.leftchild.utils.JwtUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -14,6 +17,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Gahon
@@ -26,11 +31,13 @@ public class WebController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Resource
     UserService userService;
+    PointService pointService;
 
     @GetMapping("/")
     public Result index() {
         return ResultGenerator.genFailResult("暂时还没有主页");
     }
+
 
     @PostMapping("/login")
     @ApiOperation(value = "登录", notes = "用户登录操作", httpMethod = "POST")
@@ -46,11 +53,13 @@ public class WebController {
         logger.info("-- user login: {} {}", username, password);
         logger.info("--user--: {}", user);
         if (user != null && password.equals(user.getPassword())) {
-            return ResultGenerator.genSuccessResult(user);
+            String token = JwtUtils.createJWT(user.getUid().toString(), username, Constants.JWT_TTL);
+            Map<String, String> map = new HashMap<>(2);
+            map.put("token", token);
+            return ResultGenerator.genSuccessResult(map);
         } else {
             return ResultGenerator.genFailResult("登录失败,请检查用户名或密码");
         }
-
     }
 
     @PostMapping("/register")
