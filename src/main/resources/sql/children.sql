@@ -14,7 +14,7 @@ USE CHILDREN_DB;
 CREATE TABLE `user` (
   `uid`           int(11)      NOT NULL AUTO_INCREMENT
   COMMENT '负责人uid',
-  `username`      varchar(255) NOT NULL,
+  `username`      varchar(255) NOT NULL UNIQUE,
   `password`      varchar(255) NOT NULL,
   `sex`           int(1)                DEFAULT NULL
   COMMENT '性别：0-女，1-男',

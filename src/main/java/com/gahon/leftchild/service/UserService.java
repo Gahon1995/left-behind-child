@@ -9,5 +9,5 @@ import com.gahon.leftchild.bean.User;
  * @date 2018/11/17.
  */
 public interface UserService extends Service<User> {
-
+    User findByUserName(String username);
 }
