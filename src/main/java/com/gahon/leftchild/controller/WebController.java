@@ -1,5 +1,6 @@
 package com.gahon.leftchild.controller;
 
+import com.gahon.leftchild.bean.Point;
 import com.gahon.leftchild.bean.User;
 import com.gahon.leftchild.core.Result;
 import com.gahon.leftchild.core.ResultGenerator;
@@ -7,6 +8,7 @@ import com.gahon.leftchild.service.PointService;
 import com.gahon.leftchild.service.UserService;
 import com.gahon.leftchild.utils.Constants;
 import com.gahon.leftchild.utils.DataCheck;
+import com.gahon.leftchild.utils.FilterObject;
 import com.gahon.leftchild.utils.JwtUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,6 +34,7 @@ public class WebController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Resource
     UserService userService;
+    @Resource
     PointService pointService;
 
     @GetMapping("/")
@@ -38,6 +42,31 @@ public class WebController {
         return ResultGenerator.genFailResult("暂时还没有主页");
     }
 
+    @ApiOperation(value = "点获取", notes = "获取每个服务点的坐标，以及id，用于展示在地图上,当city参数为空时查询所有数据。" +
+            "返回的message格式为list: {\n" +
+            "\t\t\t\t\t\t\t\t\t\t    {\n" +
+            "\t\t\t\t\t\t\t\t\t\t      \"lng\": \"12.87\",\n" +
+            "\t\t\t\t\t\t\t\t\t\t      \"pid\": 1,\n" +
+            "\t\t\t\t\t\t\t\t\t\t      \"lat\": \"60.23\"\n" +
+            "\t\t\t\t\t\t\t\t\t\t    }\n" +
+            "\t\t\t\t\t\t\t\t\t\t}", httpMethod = "GET")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "city", value = "查询城市", paramType = "query", dataType = "String")
+    })
+    @GetMapping("/points")
+    public Result getPoints(@RequestParam(required = false) String city) {
+//        SimplePropertyPreFilterEx filterEx = new SimplePropertyPreFilterEx(null,
+//                new String[]{"pid", "lat", "lng",null}
+//                );
+        List<Point> points;
+        if (city.isEmpty()) {
+            points = pointService.findAll();
+        } else {
+            points = pointService.findPointsByCity(city);
+
+        }
+        return ResultGenerator.genSuccessResult(FilterObject.genFilterObject(points, "pid", "lat", "lng"));
+    }
 
     @PostMapping("/login")
     @ApiOperation(value = "登录", notes = "用户登录操作", httpMethod = "POST")

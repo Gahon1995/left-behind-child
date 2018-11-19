@@ -49,5 +49,5 @@ public class Constants {
     /**
      * 存放Authorization的header字段
      */
-    public static final String AUTHORIZATION = "token";
+    public static final String AUTHORIZATION = "Token";
 }

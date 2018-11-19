@@ -3,6 +3,8 @@ package com.gahon.leftchild.service;
 import com.gahon.leftchild.core.Service;
 import com.gahon.leftchild.bean.Point;
 
+import java.util.List;
+
 
 /**
  * @author Gahon
@@ -10,4 +12,5 @@ import com.gahon.leftchild.bean.Point;
  */
 public interface PointService extends Service<Point> {
 
+    List<Point> findPointsByCity(String city);
 }

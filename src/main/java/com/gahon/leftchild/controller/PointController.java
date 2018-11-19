@@ -41,10 +41,10 @@ public class PointController {
             @ApiImplicitParam(name = "page", value = "查询页码", paramType = "query", dataType = "Integer", defaultValue = "0"),
             @ApiImplicitParam(name = "size", value = "每页数据量", paramType = "query", dataType = "Integer", defaultValue = "0")
     })
-    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
+    public Result<PageInfo<Point>> list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
         List<Point> list = pointService.findAll();
-        PageInfo pageInfo = new PageInfo(list);
+        PageInfo<Point> pageInfo = new PageInfo<>(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }
 
@@ -84,7 +84,7 @@ public class PointController {
             @ApiImplicitParam(name = "id", value = "查询的id", paramType = "path", required = true, dataType = "Integer", defaultValue = "0")
     })
     @Authorization
-    public Result detail(@PathVariable Integer id, @CurrentUser User user) {
+    public Result<Point> detail(@PathVariable Integer id, @CurrentUser User user) {
         logger.info("当前登录的用户： {}", user);
         Point point = pointService.findById(id);
         return ResultGenerator.genSuccessResult(point);

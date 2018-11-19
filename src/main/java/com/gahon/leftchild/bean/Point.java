@@ -1,6 +1,8 @@
 package com.gahon.leftchild.bean;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import tk.mybatis.mapper.annotation.KeySql;
 import tk.mybatis.mapper.code.IdentityDialect;
 
@@ -12,62 +14,75 @@ import java.util.Date;
  * @author Gahon
  * @date 2018/11/17.
  */
+@ApiModel(value = "返回说明，当使用points方法调用时只返回id、经度和纬度这三个值")
 public class Point {
     @Id
     @KeySql(dialect = IdentityDialect.MYSQL)
+    @ApiModelProperty(value = "唯一id标志")
     private Integer pid;
 
     /**
      * 负责人uid
      */
+    @ApiModelProperty(value = "负责人uid")
     private Integer uid;
     /**
      * 帮扶人uid
      */
+    @ApiModelProperty(value = "帮扶人uid")
     private Integer vid;
     /**
      * 服务点名称
      */
+    @ApiModelProperty(value = "服务点名称")
     private String title;
 
     /**
      * 地址
      */
+    @ApiModelProperty(value = "地址")
     private String address;
 
     /**
      * 纬度
      */
+    @ApiModelProperty(value = "纬度")
     private String lat;
 
     /**
      * 经度
      */
+    @ApiModelProperty(value = "经度")
     private String lng;
 
     /**
      * 该点所属城市
      */
+    @ApiModelProperty(value = "该点所属城市")
     private String city;
 
     /**
      * 该服务点的描述
      */
+    @ApiModelProperty(value = "该服务点的描述")
     private String describe;
 
     /**
      * 审核状态：0正在审核，1通过审核，-1审核不通过
      */
+    @ApiModelProperty(value = "审核状态：0正在审核，1通过审核，-1审核不通过")
     private Integer state;
 
     /**
      * 审核说明
      */
+    @ApiModelProperty(value = "审核说明")
     private String detail;
 
     /**
      * 申请时间
      */
+    @ApiModelProperty(value = "申请时间")
     @Column(name = "create_time")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
