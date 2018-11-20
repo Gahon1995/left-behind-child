@@ -2,7 +2,7 @@ package com.gahon.leftchild.controller;
 
 import com.gahon.leftchild.core.Result;
 import com.gahon.leftchild.core.ResultGenerator;
-import com.gahon.leftchild.bean.User;
+import com.gahon.leftchild.model.User;
 import com.gahon.leftchild.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

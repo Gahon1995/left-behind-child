@@ -1,4 +1,4 @@
-package com.gahon.leftchild.bean;
+package com.gahon.leftchild.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;

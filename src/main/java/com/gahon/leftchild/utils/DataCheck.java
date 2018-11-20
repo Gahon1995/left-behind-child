@@ -1,6 +1,6 @@
 package com.gahon.leftchild.utils;
 
-import com.gahon.leftchild.bean.User;
+import com.gahon.leftchild.model.User;
 
 public class DataCheck {
     public static boolean isUserLegal(User user) {

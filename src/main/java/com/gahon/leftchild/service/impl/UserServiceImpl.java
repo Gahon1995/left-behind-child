@@ -1,6 +1,6 @@
 package com.gahon.leftchild.service.impl;
 
-import com.gahon.leftchild.bean.User;
+import com.gahon.leftchild.model.User;
 import com.gahon.leftchild.core.AbstractService;
 import com.gahon.leftchild.core.ServiceException;
 import com.gahon.leftchild.dao.UserMapper;

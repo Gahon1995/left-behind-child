@@ -1,4 +1,4 @@
-package com.gahon.leftchild.bean;
+package com.gahon.leftchild.model;
 
 import tk.mybatis.mapper.annotation.KeySql;
 import tk.mybatis.mapper.code.IdentityDialect;

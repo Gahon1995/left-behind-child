@@ -3,7 +3,7 @@ package com.gahon.leftchild.utils;
 /**
  * @author Gahon
  */
-public class Constants {
+public final class Constants {
     //------------------token----------------
     /**
      * 刷新TOKEN(有返回数据)

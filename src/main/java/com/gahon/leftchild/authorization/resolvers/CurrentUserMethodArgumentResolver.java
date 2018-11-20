@@ -2,7 +2,7 @@ package com.gahon.leftchild.authorization.resolvers;
 
 
 import com.gahon.leftchild.authorization.annotation.CurrentUser;
-import com.gahon.leftchild.bean.User;
+import com.gahon.leftchild.model.User;
 import com.gahon.leftchild.service.UserService;
 import com.gahon.leftchild.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;

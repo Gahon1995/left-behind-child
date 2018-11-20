@@ -1,6 +1,6 @@
 package com.gahon.leftchild.service.impl;
 
-import com.gahon.leftchild.bean.Point;
+import com.gahon.leftchild.model.Point;
 import com.gahon.leftchild.core.AbstractService;
 import com.gahon.leftchild.core.ServiceException;
 import com.gahon.leftchild.dao.PointMapper;
