@@ -2,6 +2,7 @@ package com.gahon.leftchild.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiParam;
 import tk.mybatis.mapper.annotation.KeySql;
 import tk.mybatis.mapper.code.IdentityDialect;
 
@@ -20,10 +21,12 @@ public class User {
     @Id
     @KeySql(dialect = IdentityDialect.MYSQL)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @ApiParam(hidden = true)
     private Integer uid;
 
     private String username;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ApiParam(hidden = true)
     private String password;
 
     /**

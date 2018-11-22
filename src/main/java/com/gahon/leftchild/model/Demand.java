@@ -1,5 +1,6 @@
 package com.gahon.leftchild.model;
 
+import io.swagger.annotations.ApiParam;
 import tk.mybatis.mapper.annotation.KeySql;
 import tk.mybatis.mapper.code.IdentityDialect;
 
@@ -8,6 +9,7 @@ import javax.persistence.Id;
 public class Demand {
     @Id
     @KeySql(dialect = IdentityDialect.MYSQL)
+    @ApiParam(hidden = true)
     private Integer did;
 
     private Integer uid;

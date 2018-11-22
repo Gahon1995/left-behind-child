@@ -4,12 +4,16 @@ package com.gahon.leftchild.authorization.interceptor;
 import com.alibaba.fastjson.JSON;
 import com.gahon.leftchild.authorization.annotation.Authorization;
 import com.gahon.leftchild.core.Result;
+import com.gahon.leftchild.core.ResultCode;
 import com.gahon.leftchild.core.ResultGenerator;
+import com.gahon.leftchild.model.User;
+import com.gahon.leftchild.service.UserService;
 import com.gahon.leftchild.utils.CheckResult;
 import com.gahon.leftchild.utils.Constants;
 import com.gahon.leftchild.utils.JwtUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
@@ -30,6 +34,8 @@ import java.lang.reflect.Method;
 public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthorizationInterceptor.class);
+    @Autowired
+    UserService userService;
 
     @Override
     public boolean preHandle(HttpServletRequest request,
@@ -40,21 +46,31 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
         }
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
-        if (method.getAnnotation(Authorization.class) != null) {
+        Authorization authorization = method.getAnnotation(Authorization.class);
+        if (authorization != null) {
             //从header中得到token
             String token = request.getHeader(Constants.AUTHORIZATION);
             //验证token
             if (StringUtils.isEmpty(token)) {
                 logger.info("验证失败，token为空");
-                responseResult(response, ResultGenerator.genFailResult("不存在token，请登录"));
+                responseResult(response, ResultGenerator.genFailResult("请先登录"));
                 return false;
             } else {
                 //验证JWT的签名，返回CheckResult对象
                 CheckResult checkResult = JwtUtils.validateJWT(token);
                 if (checkResult.isSuccess()) {
                     //如果token验证成功，将token对应的用户id存在request中，便于之后注入
-                    logger.info("CURRENT_USER_ID: {}", checkResult.getClaims().getId());
-                    request.setAttribute(Constants.CURRENT_USER_ID, checkResult.getClaims().getId());
+                    Integer currentUserId = Integer.parseInt(checkResult.getClaims().getId());
+                    if (!currentUserId.equals(-1)) {
+                        User user = userService.findById(currentUserId);
+                        logger.info("当前用户: {}", user.getUsername());
+                        if (Constants.ADMIN.equals(authorization.auth()) && (!Constants.ADMIN.equals(user.getUsername()))) {
+                            responseResult(response, ResultGenerator.genFailResult(ResultCode.UNAUTHORIZED, "无权限进行此操作"));
+                            return false;
+                        }
+                        logger.info("CURRENT_USER: {}", user);
+                        request.setAttribute(Constants.CURRENT_USER, user);
+                    }
                     return true;
                 } else {
                     switch (checkResult.getErrCode()) {

@@ -3,6 +3,7 @@ package com.gahon.leftchild.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiParam;
 import tk.mybatis.mapper.annotation.KeySql;
 import tk.mybatis.mapper.code.IdentityDialect;
 
@@ -19,6 +20,7 @@ public class Point {
     @Id
     @KeySql(dialect = IdentityDialect.MYSQL)
     @ApiModelProperty(value = "唯一id标志")
+    @ApiParam(hidden = true)
     private Integer pid;
 
     /**

@@ -16,6 +16,7 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -84,7 +85,7 @@ public class PointController {
             @ApiImplicitParam(name = "id", value = "查询的id", paramType = "path", required = true, dataType = "Integer", defaultValue = "0")
     })
     @Authorization
-    public Result<Point> detail(@PathVariable Integer id, @CurrentUser User user) {
+    public Result<Point> detail(@PathVariable Integer id, @CurrentUser @ApiIgnore User user) {
         logger.info("当前登录的用户： {}", user);
         Point point = pointService.findById(id);
         return ResultGenerator.genSuccessResult(point);
