@@ -27,7 +27,6 @@ import java.util.Map;
  * @author Gahon
  */
 @RestController
-@RequestMapping("/")
 @Api(value = "登录接口", description = "控制用户登录")
 public class WebController {
 
@@ -37,10 +36,6 @@ public class WebController {
     @Resource
     PointService pointService;
 
-    @GetMapping("/")
-    public Result index() {
-        return ResultGenerator.genFailResult("暂时还没有主页");
-    }
 
     @ApiOperation(value = "点获取", notes = "获取每个服务点的坐标，以及id，用于展示在地图上,当city参数为空时查询所有数据。" +
             "返回的message格式为list: {\n" +

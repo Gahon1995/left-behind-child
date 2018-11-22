@@ -44,9 +44,8 @@ public class JwtUtils {
      */
     public static CheckResult validateJWT(String token) {
         CheckResult checkResult = new CheckResult();
-        Claims claims = null;
         try {
-            claims = parseJWT(token);
+            Claims claims = parseJWT(token);
             checkResult.setSuccess(true);
             checkResult.setClaims(claims);
         } catch (ExpiredJwtException e) {

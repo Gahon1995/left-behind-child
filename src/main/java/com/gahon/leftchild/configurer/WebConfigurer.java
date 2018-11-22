@@ -121,11 +121,11 @@ public class WebConfigurer implements WebMvcConfigurer {
     /**
      * @param registry
      */
-    //解决跨域问题
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        //registry.addMapping("/**");
-    }
+//    //解决跨域问题
+//    @Override
+//    public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/**");
+//    }
 
     private void responseResult(HttpServletResponse response, Result result) {
         response.setCharacterEncoding("UTF-8");

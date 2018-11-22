@@ -2,6 +2,9 @@ package com.gahon.leftchild.utils;
 
 import com.gahon.leftchild.model.User;
 
+/**
+ * @author Gahon
+ */
 public class DataCheck {
     public static boolean isUserLegal(User user) {
 
