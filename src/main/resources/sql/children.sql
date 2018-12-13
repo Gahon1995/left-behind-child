@@ -40,12 +40,16 @@ CREATE TABLE `point` (
   COMMENT '服务点名称',
   `address`     varchar(255) NOT NULL
   COMMENT '地址',
+  `province`    varchar(120) NOT NULL
+  COMMENT '该点所属省',
+  `city`        varchar(120) NOT NULL
+  COMMENT '该点所属市',
+  `district`    varchar(120) NOT NULL
+  COMMENT '该点所属区',
   `lat`         varchar(255) NOT NULL
   COMMENT '纬度',
   `lng`         varchar(255) NOT NULL
   COMMENT '经度',
-  `city`        varchar(120) NOT NULL
-  COMMENT '该点所属城市',
   `describe`    varchar(255) NOT NULL
   COMMENT '该服务点的描述',
   `state`       int(4)                DEFAULT 0
@@ -91,23 +95,23 @@ FROM demand;
 
 -- point 初始化
 INSERT INTO `point`
-VALUES ('1', '2', '0', '志新小区', '北京市海淀区', '60.23', '12.87', '北京市', '贫穷', 0, '正在审核', CURRENT_TIMESTAMP);
+VALUES ('1', '2', '0', '志新小区', '', '北京市', '北京市', '海淀区', '60.23', '12.87', '贫穷', 0, '正在审核', CURRENT_TIMESTAMP);
 INSERT INTO `point`
-VALUES ('2', '3', '3', '海淀小区', '北京市海淀区', '58.57', '12.87', '北京市', '贫穷', 1, '通过', CURRENT_TIMESTAMP);
+VALUES ('2', '3', '3', '海淀小区', '', '北京市', '北京市', '海淀区', '58.57', '12.87', '贫穷', 1, '通过', CURRENT_TIMESTAMP);
 INSERT INTO `point`
-VALUES ('3', '1', '5', '龙泉小区', '北京市海淀区', '45.57', '12.87', '北京市', '贫穷', 0, '正在审核', CURRENT_TIMESTAMP);
+VALUES ('3', '1', '5', '龙泉小区', '', '北京市', '北京市', '海淀区', '45.57', '12.87', '贫穷', 0, '正在审核', CURRENT_TIMESTAMP);
 INSERT INTO `point`
-VALUES ('4', '7', '0', '夏季小区', '北京市海淀区', '60.23', '12.87', '北京市', '贫穷', 0, '正在审核', CURRENT_TIMESTAMP);
+VALUES ('4', '7', '0', '夏季小区', '', '北京市', '北京市', '海淀区', '60.23', '12.87', '贫穷', 0, '正在审核', CURRENT_TIMESTAMP);
 INSERT INTO `point`
-VALUES ('5', '2', '0', '良心小区', '北京市海淀区', '60.23', '12.87', '北京市', '贫穷', 0, '正在审核', CURRENT_TIMESTAMP);
+VALUES ('5', '2', '0', '良心小区', '', '北京市', '北京市', '海淀区', '60.23', '12.87', '贫穷', 0, '正在审核', CURRENT_TIMESTAMP);
 INSERT INTO `point`
-VALUES ('6', '8', '2', '阿萨小区', '北京市海淀区', '60.23', '12.87', '北京市', '贫穷', 0, '正在审核', CURRENT_TIMESTAMP);
+VALUES ('6', '8', '2', '阿萨小区', '', '北京市', '北京市', '海淀区', '60.23', '12.87', '贫穷', 0, '正在审核', CURRENT_TIMESTAMP);
 INSERT INTO `point`
-VALUES ('7', '3', '0', '网络小区', '北京市海淀区', '60.23', '12.87', '北京市', '贫穷', -1, '未通过', CURRENT_TIMESTAMP);
+VALUES ('7', '3', '0', '网络小区', '', '北京市', '北京市', '海淀区', '60.23', '12.87', '贫穷', -1, '未通过', CURRENT_TIMESTAMP);
 INSERT INTO `point`
-VALUES ('8', '5', '4', '破损小区', '北京市海淀区', '60.23', '12.87', '北京市', '贫穷', 0, '正在审核', CURRENT_TIMESTAMP);
+VALUES ('8', '5', '4', '破损小区', '', '北京市', '北京市', '海淀区', '60.23', '12.87', '贫穷', 0, '正在审核', CURRENT_TIMESTAMP);
 INSERT INTO `point`
-VALUES ('9', '9', '0', '农业小区', '北京市海淀区', '60.23', '12.87', '北京市', '贫穷', 1, '通过', CURRENT_TIMESTAMP);
+VALUES ('9', '9', '0', '农业小区', '', '北京市', '北京市', '海淀区', '60.23', '12.87', '贫穷', 1, '通过', CURRENT_TIMESTAMP);
 
 select *
 FROM point;

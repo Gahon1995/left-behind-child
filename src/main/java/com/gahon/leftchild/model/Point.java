@@ -38,11 +38,25 @@ public class Point {
      */
     @ApiModelProperty(value = "服务点名称")
     private String title;
-
+    /**
+     * 省份
+     */
+    @ApiModelProperty(value = "省份")
+    private String province;
+    /**
+     * 该点所属城市
+     */
+    @ApiModelProperty(value = "市")
+    private String city;
+    /**
+     * 区
+     */
+    @ApiModelProperty(value = "区")
+    private String district;
     /**
      * 地址
      */
-    @ApiModelProperty(value = "地址")
+    @ApiModelProperty(value = "详细地址")
     private String address;
 
     /**
@@ -56,12 +70,6 @@ public class Point {
      */
     @ApiModelProperty(value = "经度")
     private String lng;
-
-    /**
-     * 该点所属城市
-     */
-    @ApiModelProperty(value = "该点所属城市")
-    private String city;
 
     /**
      * 该服务点的描述
@@ -318,5 +326,21 @@ public class Point {
      */
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
     }
 }

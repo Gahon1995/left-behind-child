@@ -13,6 +13,8 @@
         <result column="lat" jdbcType="VARCHAR" property="lat"/>
         <result column="lng" jdbcType="VARCHAR" property="lng"/>
         <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="district" jdbcType="VARCHAR" property="district"/>
         <result column="describe" jdbcType="VARCHAR" property="describe"/>
         <result column="state" jdbcType="INTEGER" property="state"/>
         <result column="detail" jdbcType="VARCHAR" property="detail"/>

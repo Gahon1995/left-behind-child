@@ -1,14 +1,13 @@
 package com.gahon.leftchild.controller;
 
-import com.gahon.leftchild.model.Point;
-import com.gahon.leftchild.model.User;
 import com.gahon.leftchild.core.Result;
 import com.gahon.leftchild.core.ResultGenerator;
+import com.gahon.leftchild.model.Point;
+import com.gahon.leftchild.model.User;
 import com.gahon.leftchild.service.PointService;
 import com.gahon.leftchild.service.UserService;
 import com.gahon.leftchild.utils.Constants;
 import com.gahon.leftchild.utils.DataCheck;
-import com.gahon.leftchild.utils.FilterObject;
 import com.gahon.leftchild.utils.JwtUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -58,9 +57,9 @@ public class WebController {
             points = pointService.findAll();
         } else {
             points = pointService.findPointsByCity(city);
-
         }
-        return ResultGenerator.genSuccessResult(FilterObject.genFilterObject(points, "pid", "lat", "lng"));
+//        return ResultGenerator.genSuccessResult(FilterObject.genFilterObject(points, "pid", "lat", "lng"));
+        return ResultGenerator.genSuccessResult(pointService.getGsonPoint(points));
     }
 
     @PostMapping("/login")

@@ -4,6 +4,9 @@ package com.gahon.leftchild.utils;
  * @author Gahon
  */
 public final class Constants {
+
+    public static final String GOOGLE_MAP_ID = "";
+    public static final String GAODE_MAP_ID = "";
     //------------------token----------------
     /**
      * 刷新TOKEN(有返回数据)
