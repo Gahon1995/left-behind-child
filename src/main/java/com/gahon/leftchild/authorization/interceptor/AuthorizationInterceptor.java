@@ -52,7 +52,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 //            String token="";
 //            Cookie[] cookies = request.getCookies();
 //            for(Cookie cookie:cookies){
-//                if(Constants.AUTHORIZATION.toLowerCase().equals(cookie.getName().toLowerCase())){
+//                if(Constants.AUTHORIZATION.toLowerCase().equals(cookie.getPointName().toLowerCase())){
 //                    token = cookie.getValue();
 //                    logger.info("get token: {}",token);
 //                }

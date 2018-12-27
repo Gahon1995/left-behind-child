@@ -3,7 +3,11 @@ package com.gahon.leftchild.controller.admin;
 import com.gahon.leftchild.core.Result;
 import com.gahon.leftchild.core.ResultGenerator;
 import com.gahon.leftchild.model.Demand;
+import com.gahon.leftchild.model.Point;
+import com.gahon.leftchild.model.admin.AdminDemand;
 import com.gahon.leftchild.service.DemandService;
+import com.gahon.leftchild.service.PointService;
+import com.gahon.leftchild.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
@@ -13,6 +17,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,9 +27,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/demands")
 @Api(value = "Demand控制类", description = "控制类接口测试")
-public class DemandController {
+public class AdminDemandController {
     @Resource
     private DemandService demandService;
+    @Resource
+    private PointService pointService;
+    @Resource
+    private UserService userService;
 
     @GetMapping
     @ApiOperation(value = "获取全部", notes = "返回分页过后的数据", httpMethod = "GET")
@@ -32,10 +41,21 @@ public class DemandController {
             @ApiImplicitParam(name = "page", value = "查询页码", paramType = "query", dataType = "Integer", defaultValue = "0"),
             @ApiImplicitParam(name = "size", value = "每页数据量", paramType = "query", dataType = "Integer", defaultValue = "0")
     })
-    public Result<PageInfo<Demand>> list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
+    public Result<PageInfo<AdminDemand>> list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
         List<Demand> list = demandService.findAll();
-        PageInfo<Demand> pageInfo = new PageInfo<>(list);
+        List<AdminDemand> demands = new ArrayList<>();
+        for (Demand demand : list) {
+            Point point = pointService.findById(demand.getPid());
+            String title = point.getTitle();
+            String owner = userService.findById(point.getUid()).getUsername();
+            String helper = "";
+            if(demand.getHid()>0){
+                helper = userService.findById(demand.getHid()).getUsername();
+            }
+            demands.add(new AdminDemand(title,owner,helper,demand));
+        }
+        PageInfo<AdminDemand> pageInfo = new PageInfo<>(demands);
         return ResultGenerator.genSuccessResult(pageInfo);
     }
 

@@ -1,76 +1,154 @@
 package com.gahon.leftchild.model;
 
-import io.swagger.annotations.ApiParam;
-import tk.mybatis.mapper.annotation.KeySql;
-import tk.mybatis.mapper.code.IdentityDialect;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
 
+import javax.persistence.Column;
 import javax.persistence.Id;
+import java.util.Date;
 
 public class Demand {
+    /**
+     * UID
+     */
     @Id
-    @KeySql(dialect = IdentityDialect.MYSQL)
-    @ApiParam(hidden = true)
     private Integer did;
 
-    private Integer uid;
+    /**
+     * 发起该需求的服务点id
+     */
+    private Integer pid;
 
     /**
-     * 需求信息
+     * 帮扶人id
+     */
+    private Integer hid;
+
+    /**
+     * 是否有人帮扶，1-有，0-无
+     */
+    private Integer status;
+
+    /**
+     * 需求描述，必填
      */
     private String detail;
 
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
     /**
-     * @return did
+     * 申请时间
+     */
+    @ApiModelProperty(value = "申请时间")
+    @Column(name = "create_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
+
+    public Demand() {
+    }
+
+    public Demand(Integer did, Integer pid, Integer hid, Integer status, String detail,Date createTime) {
+        this.did = did;
+        this.pid = pid;
+        this.hid = hid;
+        this.status = status;
+        this.detail = detail;
+        this.createTime = createTime;
+    }
+
+    /**
+     * 获取UID
+     *
+     * @return did - UID
      */
     public Integer getDid() {
         return did;
     }
 
     /**
-     * @param did
+     * 设置UID
+     *
+     * @param did UID
      */
     public void setDid(Integer did) {
         this.did = did;
     }
 
     /**
-     * @return uid
-     */
-    public Integer getUid() {
-        return uid;
-    }
-
-    /**
-     * @param uid
-     */
-    public void setUid(Integer uid) {
-        this.uid = uid;
-    }
-
-    /**
-     * 获取需求信息
+     * 获取发起该需求的服务点id
      *
-     * @return detail - 需求信息
+     * @return pid - 发起该需求的服务点id
+     */
+    public Integer getPid() {
+        return pid;
+    }
+
+    /**
+     * 设置发起该需求的服务点id
+     *
+     * @param pid 发起该需求的服务点id
+     */
+    public void setPid(Integer pid) {
+        this.pid = pid;
+    }
+
+    /**
+     * 获取帮扶人id
+     *
+     * @return hid - 帮扶人id
+     */
+    public Integer getHid() {
+        return hid;
+    }
+
+    /**
+     * 设置帮扶人id
+     *
+     * @param hid 帮扶人id
+     */
+    public void setHid(Integer hid) {
+        this.hid = hid;
+    }
+
+    /**
+     * 获取是否有人帮扶，1-有，0-无
+     *
+     * @return status - 是否有人帮扶，1-有，0-无
+     */
+    public Integer getStatus() {
+        return status;
+    }
+
+    /**
+     * 设置是否有人帮扶，1-有，0-无
+     *
+     * @param status 是否有人帮扶，1-有，0-无
+     */
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    /**
+     * 获取需求描述，必填
+     *
+     * @return detail - 需求描述，必填
      */
     public String getDetail() {
         return detail;
     }
 
     /**
-     * 设置需求信息
+     * 设置需求描述，必填
      *
-     * @param detail 需求信息
+     * @param detail 需求描述，必填
      */
     public void setDetail(String detail) {
         this.detail = detail;
-    }
-
-    @Override
-    public String toString() {
-        return "Demand{" +
-                "did=" + did +
-                ", uid=" + uid +
-                ", detail='" + detail + '\'' +
-                '}';
     }
 }

@@ -29,11 +29,6 @@ public class Point {
     @ApiModelProperty(value = "负责人uid")
     private Integer uid;
     /**
-     * 帮扶人uid
-     */
-    @ApiModelProperty(value = "帮扶人uid")
-    private Integer vid;
-    /**
      * 服务点名称
      */
     @ApiModelProperty(value = "服务点名称")
@@ -97,12 +92,30 @@ public class Point {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
+    public Point() {
+    }
+
+    public Point(Integer pid, Integer uid, String title, String province, String city, String district, String address, String lat, String lng, String describe, Integer state, String detail, Date createTime) {
+        this.pid = pid;
+        this.uid = uid;
+        this.title = title;
+        this.province = province;
+        this.city = city;
+        this.district = district;
+        this.address = address;
+        this.lat = lat;
+        this.lng = lng;
+        this.describe = describe;
+        this.state = state;
+        this.detail = detail;
+        this.createTime = createTime;
+    }
+
     @Override
     public String toString() {
         return "Point{" +
                 "pid=" + pid +
                 ", uid=" + uid +
-                ", vid=" + vid +
                 ", title='" + title + '\'' +
                 ", address='" + address + '\'' +
                 ", lat='" + lat + '\'' +
@@ -147,24 +160,6 @@ public class Point {
         this.uid = uid;
     }
 
-
-    /**
-     * 获取负责人vid
-     *
-     * @return vid - 负责人vid
-     */
-    public Integer getVid() {
-        return vid;
-    }
-
-    /**
-     * 设置负责人vid
-     *
-     * @param vid 负责人vid
-     */
-    public void setVid(Integer vid) {
-        this.vid = vid;
-    }
 
     /**
      * 获取服务点名称
