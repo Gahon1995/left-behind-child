@@ -68,9 +68,11 @@ public class JwtUtils {
      * @return Claims
      */
     public static Claims parseJWT(String jwt) throws Exception {
+
         return Jwts.parser()
                 .setSigningKey(Constants.JWT_SECERT)
                 .parseClaimsJws(jwt)
                 .getBody();
     }
+
 }

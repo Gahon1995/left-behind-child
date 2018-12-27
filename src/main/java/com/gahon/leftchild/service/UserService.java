@@ -3,6 +3,8 @@ package com.gahon.leftchild.service;
 import com.gahon.leftchild.core.Service;
 import com.gahon.leftchild.model.User;
 
+import java.util.Map;
+
 
 /**
  * @author Gahon
@@ -10,4 +12,5 @@ import com.gahon.leftchild.model.User;
  */
 public interface UserService extends Service<User> {
     User findByUserName(String username);
+    String login(String username, String password);
 }

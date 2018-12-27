@@ -49,11 +49,19 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
         Authorization authorization = method.getAnnotation(Authorization.class);
         if (authorization != null) {
             //从header中得到token
+//            String token="";
+//            Cookie[] cookies = request.getCookies();
+//            for(Cookie cookie:cookies){
+//                if(Constants.AUTHORIZATION.toLowerCase().equals(cookie.getName().toLowerCase())){
+//                    token = cookie.getValue();
+//                    logger.info("get token: {}",token);
+//                }
+//            }
             String token = request.getHeader(Constants.AUTHORIZATION);
             //验证token
             if (StringUtils.isEmpty(token)) {
                 logger.info("验证失败，token为空");
-                responseResult(response, ResultGenerator.genFailResult("请先登录"));
+                responseResult(response, ResultGenerator.genFailResult(ResultCode.WRONG_TOKEN,"请先登录"));
                 return false;
             } else {
                 //验证JWT的签名，返回CheckResult对象
@@ -77,12 +85,12 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
                         // 签名验证不通过
                         case Constants.JWT_ERRCODE_FAIL:
                             logger.info("签名验证不通过");
-                            responseResult(response, ResultGenerator.genFailResult("签名验证不通过"));
+                            responseResult(response, ResultGenerator.genFailResult(ResultCode.WRONG_TOKEN,"签名验证不通过"));
                             break;
                         // 签名过期，返回过期提示码
                         case Constants.JWT_ERRCODE_EXPIRE:
                             logger.info("签名过期");
-                            responseResult(response, ResultGenerator.genFailResult("签名过期"));
+                            responseResult(response, ResultGenerator.genFailResult(ResultCode.WRONG_TOKEN,"签名过期"));
                             break;
                         default:
                             break;

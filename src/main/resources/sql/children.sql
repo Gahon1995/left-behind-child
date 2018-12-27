@@ -137,6 +137,8 @@ INSERT INTO `user`
 VALUES ('9', '顾屿', '123456', '1', '123456789', '9@qq.com', '2017-06-23 14:24:23');
 INSERT INTO `user`
 VALUES ('10', '刘思', '123456', '0', '123456789', '10@qq.com', '2017-06-23 14:24:23');
+INSERT INTO `user`
+VALUES ('0', 'admin', 'gh123456', '0', '123456789', '10@qq.com', '2017-06-23 14:24:23');
 
 SELECT *
 FROM user;

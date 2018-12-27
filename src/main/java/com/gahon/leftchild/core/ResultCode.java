@@ -7,11 +7,18 @@ package com.gahon.leftchild.core;
  * @date 2018/11/17.
  */
 public enum ResultCode {
-    SUCCESS(200),//成功
+    /**
+     * 成功
+     */
+    SUCCESS(200),
     FAIL(400),//失败
-    UNAUTHORIZED(401),//未认证（签名错误）
+    UNAUTHORIZED(50012),//未认证（签名错误）
     NOT_FOUND(404),//接口不存在
-    INTERNAL_SERVER_ERROR(500);//服务器内部错误
+    INTERNAL_SERVER_ERROR(500),//服务器内部错误
+    /**
+     * token使用的token错误
+     */
+    WRONG_TOKEN(50008);
 
     private final int code;
 

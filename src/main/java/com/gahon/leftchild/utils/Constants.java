@@ -52,7 +52,7 @@ public final class Constants {
     /**
      * 存放Authorization的header字段
      */
-    public static final String AUTHORIZATION = "Token";
+    public static final String AUTHORIZATION = "G-Token";
 
     public static final String ADMIN = "admin";
 }

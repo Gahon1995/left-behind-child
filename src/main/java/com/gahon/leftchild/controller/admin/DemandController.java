@@ -1,4 +1,4 @@
-package com.gahon.leftchild.controller;
+package com.gahon.leftchild.controller.admin;
 
 import com.gahon.leftchild.core.Result;
 import com.gahon.leftchild.core.ResultGenerator;
@@ -20,7 +20,7 @@ import java.util.List;
  * @date 2018/11/18.
  */
 @RestController
-@RequestMapping("/demand")
+@RequestMapping("/admin/demands")
 @Api(value = "Demand控制类", description = "控制类接口测试")
 public class DemandController {
     @Resource

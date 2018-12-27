@@ -14,7 +14,7 @@ import java.util.Date;
  * @author Gahon
  * @date 2018/11/17.
  */
-public class User {
+public class User extends BaseUser{
     /**
      * 负责人uid
      */
@@ -24,10 +24,6 @@ public class User {
     @ApiParam(hidden = true)
     private Integer uid;
 
-    private String username;
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ApiParam(hidden = true)
-    private String password;
 
     /**
      * 性别：0-女，1-男
@@ -49,8 +45,8 @@ public class User {
     public String toString() {
         return "User{" +
                 "uid=" + uid +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
+                ", username='" + super.getUsername() + '\'' +
+                ", password='" + super.getPassword() + '\'' +
                 ", sex=" + sex +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
@@ -76,33 +72,6 @@ public class User {
         this.uid = uid;
     }
 
-    /**
-     * @return username
-     */
-    public String getUsername() {
-        return username;
-    }
-
-    /**
-     * @param username
-     */
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    /**
-     * @return password
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * @param password
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     /**
      * 获取性别：0-女，1-男
