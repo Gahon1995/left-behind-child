@@ -65,26 +65,42 @@ CREATE TABLE `point` (
 
 DROP TABLE IF EXISTS `demand`;
 CREATE TABLE `demand` (
-  `did`    int(11) NOT NULL AUTO_INCREMENT COMMENT 'UID' ,
-  `pid`    int(11) COMMENT '发起该需求的服务点id' ,
-  `hid` int(11) DEFAULT -1 COMMENT '帮扶人id' ,
-  `status` int(4) COMMENT '是否有人帮扶，1-有，0-无，-1-待审核',
-  `detail` varchar(255) NOT NULL COMMENT '需求描述，必填',
-  `create_time` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `did`               int(11) NOT NULL AUTO_INCREMENT COMMENT 'UID' ,
+  `pid`               int(11) COMMENT '发起该需求的服务点id' ,
+  `detail`            varchar(255) NOT NULL COMMENT '需求描述，必填',
+  `status`            int(4)           DEFAULT -1
+  COMMENT '需求审核状态，1-通过，0-待审核, -1-不通过',
+  `reviewApplyDetail` varchar(255) NOT NULL
+  COMMENT '需求申请审核说明',
+  `hid`               int(11)          DEFAULT -1
+  COMMENT '帮扶人id',
+  `applyDetail`       varchar(255) COMMENT '帮扶申请说明',
+  `helpState`         int(4)           DEFAULT -2
+  COMMENT '申请帮扶状态： -2： 无人申请  -1： 不通过 0：  待审核 1：  通过',
+  `reviewHelpDetail`  varchar(255) NOT NULL
+  COMMENT '帮扶审核说明',
+  `create_time`       timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP
   COMMENT '申请时间',
   PRIMARY KEY (`did`)
 )
   ENGINE = InnoDB
-  AUTO_INCREMENT = 6
+  AUTO_INCREMENT = 7
   DEFAULT CHARSET = UTF8MB4
   COMMENT '需求信息表';
 
 -- 需求信息初始化
-INSERT INTO `demand` VALUES ('1', '1', '-1','0','需要两条被子', CURRENT_TIMESTAMP);
-INSERT INTO `demand` VALUES ('2', '3', '3','1', '需要一部手机', CURRENT_TIMESTAMP);
-INSERT INTO `demand` VALUES ('3', '6', '7','-1', '需要三台电脑', CURRENT_TIMESTAMP);
-INSERT INTO `demand` VALUES ('4', '3', '4','1', '需要一位教师', CURRENT_TIMESTAMP);
-INSERT INTO `demand` VALUES ('5', '8', '-1','0','需要10000元', CURRENT_TIMESTAMP );
+INSERT INTO `demand`
+VALUES ('1', '1', '需要两条被子', '0', '待审核', '-1', '', '-2', '', CURRENT_TIMESTAMP);
+INSERT INTO `demand`
+VALUES ('2', '3', '需要一部手机', '1', '通过', '3', '正好有资源', '0', '等待审核', CURRENT_TIMESTAMP);
+INSERT INTO `demand`
+VALUES ('3', '6', '需要三台电脑', '-1', '不通过', '-1', '', '-2', '', CURRENT_TIMESTAMP);
+INSERT INTO `demand`
+VALUES ('4', '3', '需要一位教师', '1', '通过', '4', '刚毕业，可以去帮助', '1', '符合要求', CURRENT_TIMESTAMP);
+INSERT INTO `demand`
+VALUES ('5', '8', '需要10000元', '1', '通过', '-1', '就是有钱', '-1', '信任度不高', CURRENT_TIMESTAMP);
+INSERT INTO `demand`
+VALUES ('6', '2', '需要10000元', '1', '通过', '-1', '', '-2', '无人申请', CURRENT_TIMESTAMP);
 
 SELECT *
 FROM demand;
