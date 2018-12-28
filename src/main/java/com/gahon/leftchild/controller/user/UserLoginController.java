@@ -11,10 +11,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -67,5 +64,14 @@ public class UserLoginController {
         }
     }
 
-
+    @GetMapping("/userinfo")
+    @ApiOperation(value = "获取用户信息", notes = "用于用户登陆过后得到相关的信息", httpMethod = "GET")
+    @ApiImplicitParam(name = "id", value = "查询的用户id", paramType = "query", dataType = "Integer", required = true)
+    public Result userinfo(@RequestParam Integer id) {
+        User user = userService.findById(id);
+        if (user != null) {
+            return ResultGenerator.genSuccessResult(user);
+        }
+        return ResultGenerator.genFailResult(ResultCode.UNAUTHORIZED, "用户不存在");
+    }
 }

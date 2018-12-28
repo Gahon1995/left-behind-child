@@ -29,7 +29,7 @@ CREATE TABLE `user` (
   DEFAULT CHARSET = UTF8MB4
   COMMENT '用户信息表';
 
-DROP TABLE IF EXISTS `point`
+DROP TABLE IF EXISTS `point`;
 CREATE TABLE `point` (
   `pid`         int(11)      NOT NULL AUTO_INCREMENT,
   `uid`         int(11)      NOT NULL
@@ -63,7 +63,7 @@ CREATE TABLE `point` (
   DEFAULT CHARSET = UTF8MB4
   COMMENT '服务点表';
 
-DROP TABLE IF EXISTS `demand`
+DROP TABLE IF EXISTS `demand`;
 CREATE TABLE `demand` (
   `did`    int(11) NOT NULL AUTO_INCREMENT COMMENT 'UID' ,
   `pid`    int(11) COMMENT '发起该需求的服务点id' ,

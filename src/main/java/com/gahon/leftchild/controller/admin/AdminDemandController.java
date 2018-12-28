@@ -41,7 +41,7 @@ public class AdminDemandController {
             @ApiImplicitParam(name = "page", value = "查询页码", paramType = "query", dataType = "Integer", defaultValue = "0"),
             @ApiImplicitParam(name = "size", value = "每页数据量", paramType = "query", dataType = "Integer", defaultValue = "0")
     })
-    public Result<PageInfo<AdminDemand>> list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
+    public Result<PageInfo> list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
         List<Demand> list = demandService.findAll();
         List<AdminDemand> demands = new ArrayList<>();
@@ -55,7 +55,8 @@ public class AdminDemandController {
             }
             demands.add(new AdminDemand(title,owner,helper,demand));
         }
-        PageInfo<AdminDemand> pageInfo = new PageInfo<>(demands);
+        PageInfo pageInfo = new PageInfo<>(list);
+        pageInfo.setList(demands);
         return ResultGenerator.genSuccessResult(pageInfo);
     }
 
