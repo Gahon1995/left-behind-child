@@ -67,6 +67,9 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
                 //验证JWT的签名，返回CheckResult对象
                 CheckResult checkResult = JwtUtils.validateJWT(token);
                 if (checkResult.isSuccess()) {
+//                    logger.info("验证失败，token为空");
+//                    responseResult(response, ResultGenerator.genFailResult(ResultCode.WRONG_TOKEN,"签名验证不通过"));
+//                    return false;
                     //如果token验证成功，将token对应的用户id存在request中，便于之后注入
                     Integer currentUserId = Integer.parseInt(checkResult.getClaims().getId());
                     if (!currentUserId.equals(-1)) {
@@ -105,8 +108,14 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 
 
     private void responseResult(HttpServletResponse response, Result result) {
+        logger.info("error: {} : {}", result.getCode(), result.getMessage());
         response.setCharacterEncoding("UTF-8");
         response.setHeader("Content-type", "application/json;charset=UTF-8");
+        //拦截器返回时需要单独添加跨域访问
+        response.setHeader("Access-Control-Allow-Origin", "*");
+//        response.setHeader("Access-Control-Allow-Methods","*");
+//        response.setHeader("Allow","*");
+//        response.setHeader("Access-Control-Allow-Headers","*");
         response.setStatus(200);
         try {
             response.getWriter().write(JSON.toJSONString(result));

@@ -1,6 +1,5 @@
 package com.gahon.leftchild.controller.admin;
 
-import com.gahon.leftchild.authorization.annotation.Authorization;
 import com.gahon.leftchild.core.Result;
 import com.gahon.leftchild.core.ResultCode;
 import com.gahon.leftchild.core.ResultGenerator;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,9 +48,9 @@ public class AdminLoginController {
         return ResultGenerator.genSuccessResult(map);
     }
 
-    @PostMapping("/admin/logout")
-    @ApiOperation(value = "注销", notes = "用户登录操作", httpMethod = "POST")
-    @Authorization(auth = "admin")
+    @GetMapping("/admin/logout")
+    @ApiOperation(value = "注销", notes = "用户登录操作", httpMethod = "Get")
+//    @Authorization(auth = "admin")
     public Result adminLogout() {
         return ResultGenerator.genSuccessResult("注销成功");
     }
@@ -61,7 +59,7 @@ public class AdminLoginController {
     public Result info(){
         ModelAndView view = new ModelAndView();
         view.addObject("name", "admin");
-        view.addObject("roles", Arrays.asList("admin"));
+        view.addObject("role", "admin");
         view.addObject("avatar", "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
         return ResultGenerator.genSuccessResult(view.getModel());
     }
