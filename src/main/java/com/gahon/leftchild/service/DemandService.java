@@ -5,7 +5,7 @@ import com.gahon.leftchild.core.Service;
 
 /**
  * @author Gahon
- * @date 2018/12/27.
+ * @date 2018/12/28.
  */
 public interface DemandService extends Service<Demand> {
 

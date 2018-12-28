@@ -2,6 +2,9 @@ package com.gahon.leftchild.model.admin;
 
 import com.gahon.leftchild.model.Demand;
 
+/**
+ * @author Gahon
+ */
 public class AdminDemand extends Demand {
     private String pointName;
 
@@ -16,8 +19,8 @@ public class AdminDemand extends Demand {
     private String owner;
     private String helper;
 
-    public AdminDemand(String pointName, String username,String helper, Demand demand) {
-        super(demand.getDid(),demand.getPid(),demand.getHid(),demand.getStatus(),demand.getDetail(),demand.getCreateTime());
+    public AdminDemand(String pointName, String username, String helper, Demand demand) {
+        super(demand);
         this.pointName = pointName;
         this.owner = username;
         this.helper = helper;

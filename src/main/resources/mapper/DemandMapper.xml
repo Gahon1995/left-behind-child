@@ -7,9 +7,13 @@
     -->
     <id column="did" jdbcType="INTEGER" property="did" />
     <result column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="detail" jdbcType="VARCHAR" property="detail"/>
+    <result column="status" jdbcType="INTEGER" property="status"/>
+    <result column="review_apply_dtail" jdbcType="VARCHAR" property="reviewApplyDetail"/>
     <result column="hid" jdbcType="INTEGER" property="hid" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="detail" jdbcType="VARCHAR" property="detail" />
+    <result column="help_detail" jdbcType="VARCHAR" property="helpDetail"/>
+    <result column="help_state" jdbcType="INTEGER" property="helpState"/>
+    <result column="review_help_detail" jdbcType="VARCHAR" property="reviewHelpDetail"/>
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
   </resultMap>
 </mapper>
