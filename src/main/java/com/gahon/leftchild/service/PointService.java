@@ -15,5 +15,7 @@ public interface PointService extends Service<Point> {
 
     List<Point> findPointsByCity(String city);
 
+    List<Point> findPointsByUid(Integer uid);
+
     GsonPoint getGsonPoint(List<Point> points);
 }

@@ -1,4 +1,4 @@
-package com.gahon.leftchild.controller.admin;
+package com.gahon.leftchild.controller.user;
 
 import com.gahon.leftchild.authorization.annotation.Authorization;
 import com.gahon.leftchild.authorization.annotation.CurrentUser;
@@ -7,9 +7,6 @@ import com.gahon.leftchild.core.ResultCode;
 import com.gahon.leftchild.core.ResultGenerator;
 import com.gahon.leftchild.model.User;
 import com.gahon.leftchild.service.UserService;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -19,40 +16,20 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.annotation.Resource;
-import java.util.List;
 
-/**
- * @author Gahon
- * @date 2018/11/17.
- */
 @RestController
-@RequestMapping("/admin/users")
-@Api(value = "User控制类", description = "控制类接口测试")
-public class AdminUserController {
+@RequestMapping("/user")
+public class UserInfoController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Resource
     private UserService userService;
-
-    @GetMapping
-    @ApiOperation(value = "获取全部", notes = "返回分页过后的数据", httpMethod = "GET")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "page", value = "查询页码", paramType = "query", dataType = "Integer", defaultValue = "0"),
-            @ApiImplicitParam(name = "size", value = "每页数据量", paramType = "query", dataType = "Integer", defaultValue = "0")
-    })
-    public Result<PageInfo<User>> list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
-        PageHelper.startPage(page, size);
-        List<User> list = userService.findAll();
-        PageInfo<User> pageInfo = new PageInfo<>(list);
-        return ResultGenerator.genSuccessResult(pageInfo);
-    }
 
     @PostMapping
     @ApiOperation(value = "添加数据", notes = "添加新的数据", httpMethod = "POST")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "user", value = "待添加的user实例", paramType = "body", dataType = "User", required = true)
     })
-    @Authorization(auth = "admin")
     public Result add(@RequestBody User user) {
         user.setUid(0);
         logger.info("##--add user--##: {}", user.getUsername());
@@ -79,11 +56,11 @@ public class AdminUserController {
     @Authorization
     public Result update(@RequestBody User user, @RequestParam int id, @CurrentUser @ApiIgnore User loginUser) {
         user.setUid(id);
+        logger.info("id: {} - {}", user.getUid(), loginUser.getUid());
         if (loginUser.getUid().equals(user.getUid())) {
             userService.update(user);
             return ResultGenerator.genSuccessResult("更新信息成功");
         } else {
-            logger.info("id: {} - {}", user.getUid(), loginUser.getUid());
             return ResultGenerator.genFailResult(ResultCode.UNAUTHORIZED, "更新id不匹配无权限操作");
         }
     }
@@ -97,6 +74,5 @@ public class AdminUserController {
         User user = userService.findById(id);
         return ResultGenerator.genSuccessResult(user);
     }
-
 
 }

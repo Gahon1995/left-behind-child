@@ -74,12 +74,12 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
                     Integer currentUserId = Integer.parseInt(checkResult.getClaims().getId());
                     if (!currentUserId.equals(-1)) {
                         User user = userService.findById(currentUserId);
-                        logger.info("当前用户: {}", user.getUsername());
+//                        logger.info("当前用户: {}", user.getUsername());
                         if (Constants.ADMIN.equals(authorization.auth()) && (!Constants.ADMIN.equals(user.getUsername()))) {
                             responseResult(response, ResultGenerator.genFailResult(ResultCode.UNAUTHORIZED, "无权限进行此操作"));
                             return false;
                         }
-                        logger.info("CURRENT_USER: {}", user);
+//                        logger.info("CURRENT_USER: {}", user);
                         request.setAttribute(Constants.CURRENT_USER, user);
                     }
                     return true;

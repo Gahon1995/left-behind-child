@@ -1,7 +1,8 @@
-package com.gahon.leftchild.controller.admin;
+package com.gahon.leftchild.controller.user;
 
 import com.gahon.leftchild.authorization.annotation.Authorization;
 import com.gahon.leftchild.authorization.annotation.CurrentUser;
+import com.gahon.leftchild.controller.admin.AdminPointController;
 import com.gahon.leftchild.core.Result;
 import com.gahon.leftchild.core.ResultGenerator;
 import com.gahon.leftchild.model.Point;
@@ -26,14 +27,11 @@ import java.util.List;
 
 /**
  * @author Gahon
- * @date 2018/11/17.
  */
-
 @RestController
-@RequestMapping("/admin/points")
+@RequestMapping("/user/points")
 @Api(value = "Point控制类", description = "控制类接口测试")
-public class AdminPointController {
-
+public class UserPointsController {
     Logger logger = LoggerFactory.getLogger(AdminPointController.class);
 
     @Resource
@@ -47,63 +45,86 @@ public class AdminPointController {
             @ApiImplicitParam(name = "page", value = "查询页码", paramType = "query", dataType = "Integer", defaultValue = "0"),
             @ApiImplicitParam(name = "size", value = "每页数据量", paramType = "query", dataType = "Integer", defaultValue = "0")
     })
-    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
+    @Authorization
+    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size, @ApiIgnore @CurrentUser User user) {
         PageHelper.startPage(page, size);
-//        logger.info("page: {},size:{}",page,size);
-        List<Point> list = pointService.findAll();
-//        logger.info("list total: {}",list.size());
+        List<Point> list = pointService.findPointsByUid(user.getUid());
         List<AdminPoint> points = new ArrayList<>();
         for (Point point : list) {
             String username = userService.findById(point.getUid()).getUsername();
-            points.add(new AdminPoint(username ,point));
+            points.add(new AdminPoint(username, point));
         }
-//        logger.info("points total: {}",points.size());
         PageInfo pageInfo = new PageInfo<>(list);
         pageInfo.setList(points);
         return ResultGenerator.genSuccessResult(pageInfo);
     }
 
-    @PostMapping
-    @ApiOperation(value = "添加数据", notes = "添加新的数据", httpMethod = "POST")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "point", value = "待添加的point实例", paramType = "body", dataType = "Point", required = true)
-    })
-    public Result add(@RequestBody Point point) {
-        pointService.save(point);
-        return ResultGenerator.genSuccessResult();
-    }
+//    @PostMapping
+//    @ApiOperation(value = "添加数据", notes = "添加新的数据", httpMethod = "POST")
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "point", value = "待添加的point实例", paramType = "body", dataType = "Point", required = true)
+//    })
+//    @Authorization
+//    public Result add(@RequestBody Point point, @ApiIgnore @CurrentUser User user) {
+//        if(user.getUid().equals(point.getUid())) {
+//            pointService.save(point);
+//            return ResultGenerator.genSuccessResult();
+//        }else {
+//            return ResultGenerator.genFailResult("更新数据ID不匹配");
+//        }
+//    }
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "删除数据", notes = "根据id删除数据", httpMethod = "DELETE")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "查询的id", paramType = "path", required = true, dataType = "Integer"),
     })
-    public Result delete(@PathVariable Integer id) {
-//        pointService.deleteById(id);
-        return ResultGenerator.genSuccessResult();
+    @Authorization
+    public Result delete(@PathVariable Integer pid, @ApiIgnore @CurrentUser User user) {
+        if (pointService.findById(pid).getUid().equals(user.getUid())) {
+//          pointService.deleteById(pid);
+            return ResultGenerator.genSuccessResult();
+        } else {
+            return ResultGenerator.genFailResult("删除非自己的服务点");
+        }
     }
 
-    @PutMapping
-    @ApiOperation(value = "更新数据", notes = "根据内容更新数据", httpMethod = "PUT")
+    @PostMapping
+    @ApiOperation(value = "更新数据", notes = "根据内容更新数据", httpMethod = "POST")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "point", value = "更新的point实例", paramType = "body", dataType = "Point", required = true)
     })
-    public Result update(@RequestBody Point point) {
-        pointService.update(point);
-        return ResultGenerator.genSuccessResult();
+    @Authorization
+    public Result update(@RequestBody Point point, @ApiIgnore @CurrentUser User user) {
+        if (!point.getUid().equals(user.getUid())) {
+            return ResultGenerator.genFailResult("更新id不匹配");
+        }
+        point.setState(0);
+        logger.info("point: {}", point);
+        logger.info("point: {}", point.getPid());
+        if (point.getPid() == null) {
+            logger.info("add");
+            pointService.save(point);
+        } else {
+            logger.info("update");
+            pointService.update(point);
+        }
+        return ResultGenerator.genSuccessResult("添加成功");
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{pid}")
     @ApiOperation(value = "获取单个值", notes = "查看单个项目的内容", httpMethod = "GET")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "查询的id", paramType = "path", required = true, dataType = "Integer", defaultValue = "0")
     })
     @Authorization
-    public Result<Point> detail(@PathVariable Integer id, @CurrentUser @ApiIgnore User user) {
+    public Result detail(@PathVariable Integer pid, @CurrentUser @ApiIgnore User user) {
         logger.info("当前登录的用户： {}", user);
-        Point point = pointService.findById(id);
+        Point point = pointService.findById(pid);
+        if (!point.getUid().equals(user.getUid())) {
+            return ResultGenerator.genFailResult("id不匹配");
+        }
         return ResultGenerator.genSuccessResult(point);
     }
-
 
 }

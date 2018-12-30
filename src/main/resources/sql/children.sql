@@ -52,7 +52,7 @@ CREATE TABLE `point` (
   COMMENT '该服务点的描述',
   `state`       int(4)                DEFAULT 0
   COMMENT '审核状态：0正在审核，1通过审核，-1审核不通过',
-  `detail`      varchar(255) NOT NULL
+  `detail`      varchar(255)          default ""
   COMMENT '审核说明',
   `create_time` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP
   COMMENT '申请时间',

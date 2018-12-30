@@ -35,6 +35,13 @@ public class PointServiceImpl extends AbstractService<Point> implements PointSer
     }
 
     @Override
+    public List<Point> findPointsByUid(Integer uid) {
+        Example example = new Example(Point.class);
+        example.createCriteria().andLike("uid", uid.toString());
+        return pointMapper.selectByExample(example);
+    }
+
+    @Override
     public GsonPoint getGsonPoint(List<Point> points) {
         GsonPoint gsonPoint = new GsonPoint();
         gsonPoint.setType("FeatureCollection");

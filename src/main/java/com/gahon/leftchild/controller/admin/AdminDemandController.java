@@ -76,8 +76,9 @@ public class AdminDemandController {
             @ApiImplicitParam(name = "id", value = "查询的id", paramType = "path", required = true, dataType = "Integer"),
     })
     public Result delete(@PathVariable Integer id) {
-        demandService.deleteById(id);
+//        demandService.deleteById(id);
         return ResultGenerator.genSuccessResult();
+//        return ResultGenerator.genFailResult("数据异常");
     }
 
     @PutMapping
@@ -88,6 +89,7 @@ public class AdminDemandController {
     public Result update(@RequestBody Demand demand) {
         demandService.update(demand);
         return ResultGenerator.genSuccessResult();
+//        return ResultGenerator.genFailResult("数据错误");
     }
 
     @GetMapping("/{id}")
