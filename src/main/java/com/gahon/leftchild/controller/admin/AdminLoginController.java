@@ -50,7 +50,7 @@ public class AdminLoginController {
     }
 
     @GetMapping("/admin/logout")
-    @ApiOperation(value = "注销", notes = "用户登录操作", httpMethod = "Get")
+    @ApiOperation(value = "注销", notes = "用户登录操作", httpMethod = "GET")
 //    @Authorization(auth = "admin")
     public Result adminLogout() {
         return ResultGenerator.genSuccessResult("注销成功");

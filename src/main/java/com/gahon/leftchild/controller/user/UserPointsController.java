@@ -6,6 +6,7 @@ import com.gahon.leftchild.controller.admin.AdminPointController;
 import com.gahon.leftchild.core.Result;
 import com.gahon.leftchild.core.ResultGenerator;
 import com.gahon.leftchild.model.Point;
+import com.gahon.leftchild.model.PointList;
 import com.gahon.leftchild.model.User;
 import com.gahon.leftchild.model.admin.AdminPoint;
 import com.gahon.leftchild.service.PointService;
@@ -58,6 +59,24 @@ public class UserPointsController {
         pageInfo.setList(points);
         return ResultGenerator.genSuccessResult(pageInfo);
     }
+
+    @GetMapping("/list")
+    @Authorization
+    public Result pointList(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size, @ApiIgnore @CurrentUser User user) {
+        PageHelper.startPage(page, size);
+        List<Point> list = pointService.findPointsByUid(user.getUid());
+        List<PointList> points = new ArrayList<>();
+        for (Point point : list) {
+            if (point.getState() != 1) {
+                continue;
+            }
+            points.add(new PointList(point.getTitle(), point.getPid()));
+        }
+        PageInfo pageInfo = new PageInfo<>(list);
+        pageInfo.setList(points);
+        return ResultGenerator.genSuccessResult(pageInfo);
+    }
+
 
 //    @PostMapping
 //    @ApiOperation(value = "添加数据", notes = "添加新的数据", httpMethod = "POST")

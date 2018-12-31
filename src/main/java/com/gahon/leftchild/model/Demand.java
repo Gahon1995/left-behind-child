@@ -67,6 +67,22 @@ public class Demand {
     public Demand() {
     }
 
+    @Override
+    public String toString() {
+        return "Demand{" +
+                "did=" + did +
+                ", pid=" + pid +
+                ", detail='" + detail + '\'' +
+                ", status=" + status +
+                ", reviewApplyDetail='" + reviewApplyDetail + '\'' +
+                ", hid=" + hid +
+                ", helpDetail='" + helpDetail + '\'' +
+                ", helpState=" + helpState +
+                ", reviewHelpDetail='" + reviewHelpDetail + '\'' +
+                ", createTime=" + createTime +
+                '}';
+    }
+
     public Demand(Demand demand) {
         this.did = demand.did;
         this.pid = demand.pid;

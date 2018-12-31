@@ -66,18 +66,19 @@ CREATE TABLE `point` (
 DROP TABLE IF EXISTS `demand`;
 CREATE TABLE `demand` (
   `did`                 int(11)      NOT NULL AUTO_INCREMENT COMMENT 'UID' ,
-  `pid`                 int(11) COMMENT '发起该需求的服务点id' ,
+  `pid`                 int(11)      NOT NULL
+  COMMENT '发起该需求的服务点id',
   `detail`              varchar(255) NOT NULL COMMENT '需求描述，必填',
   `status`              int(4)           DEFAULT -1
   COMMENT '需求审核状态，1-通过，0-待审核, -1-不通过',
-  `review_apply_detail` varchar(255) NOT NULL
+  `review_apply_detail` varchar(255)
   COMMENT '需求申请审核说明',
   `hid`                 int(11)          DEFAULT -1
   COMMENT '帮扶人id',
   `help_detail`         varchar(255) COMMENT '帮扶申请说明',
   `help_state`          int(4)                DEFAULT -2
   COMMENT '申请帮扶状态： -2： 无人申请  -1： 不通过 0：  待审核 1：  通过',
-  `review_help_detail`  varchar(255) NOT NULL
+  `review_help_detail`  varchar(255)
   COMMENT '帮扶审核说明',
   `create_time`         timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP
   COMMENT '申请时间',
@@ -92,7 +93,7 @@ CREATE TABLE `demand` (
 INSERT INTO `demand`
 VALUES ('1', '1', '需要两条被子', '0', '待审核', '-1', '', '-2', '', CURRENT_TIMESTAMP);
 INSERT INTO `demand`
-VALUES ('2', '3', '需要一部手机', '1', '通过', '3', '正好有资源', '0', '等待审核', CURRENT_TIMESTAMP);
+VALUES ('2', '3', '需要一部手机', '1', '通过', '2', '正好有资源', '0', '等待审核', CURRENT_TIMESTAMP);
 INSERT INTO `demand`
 VALUES ('3', '6', '需要三台电脑', '-1', '不通过', '-1', '', '-2', '', CURRENT_TIMESTAMP);
 INSERT INTO `demand`

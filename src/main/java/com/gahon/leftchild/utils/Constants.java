@@ -37,7 +37,7 @@ public final class Constants {
     /**
      * token有效时间
      */
-    public static final long JWT_TTL = 60 * 60 * 1000;
+    public static final long JWT_TTL = 24 * 60 * 60 * 1000;
 
     /**
      * 存储当前登录用户id的字段名

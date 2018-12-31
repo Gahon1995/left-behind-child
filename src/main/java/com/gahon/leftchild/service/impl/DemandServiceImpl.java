@@ -1,14 +1,16 @@
 package com.gahon.leftchild.service.impl;
 
+import com.gahon.leftchild.core.AbstractService;
+import com.gahon.leftchild.core.ServiceException;
 import com.gahon.leftchild.dao.DemandMapper;
 import com.gahon.leftchild.model.Demand;
 import com.gahon.leftchild.service.DemandService;
-import com.gahon.leftchild.core.AbstractService;
-import com.gahon.leftchild.core.ServiceException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -21,4 +23,11 @@ public class DemandServiceImpl extends AbstractService<Demand> implements Demand
     @Resource
     private DemandMapper demandMapper;
 
+
+    @Override
+    public List<Demand> findDemandsByPid(Integer pid) {
+        Example example = new Example(Demand.class);
+        example.createCriteria().andLike("pid", pid.toString());
+        return demandMapper.selectByExample(example);
+    }
 }

@@ -25,6 +25,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author Gahon
+ */
 @RestController
 public class LoginController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -53,7 +56,7 @@ public class LoginController {
     }
 
     @GetMapping("/logout")
-    @ApiOperation(value = "注销", notes = "用户登录操作", httpMethod = "Get")
+    @ApiOperation(value = "注销", notes = "用户登录操作", httpMethod = "GET")
 //    @Authorization(auth = "admin")
     public Result logout() {
         return ResultGenerator.genSuccessResult("注销成功");
