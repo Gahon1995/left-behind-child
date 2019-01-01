@@ -19,6 +19,9 @@ public class AdminDemand extends Demand {
     private String owner;
     private String helper;
 
+    public AdminDemand() {
+    }
+
     public AdminDemand(String pointName, String username, String helper, Demand demand) {
         super(demand);
         this.pointName = pointName;

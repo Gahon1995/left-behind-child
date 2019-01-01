@@ -47,17 +47,15 @@ public class UserDemandsController {
         PageHelper.startPage(page, size);
         List<Point> points = pointService.findPointsByUid(user.getUid());
         List<Demand> list = null;
-        List<UserDemand> demands = null;
+        List<UserDemand> demands = new ArrayList<>();
         for (Point p : points) {
-//            logger.info("point id: {}", p.getPid());
             if (p.getState() != 1) {
                 continue;
             }
             list = demandService.findDemandsByPid(p.getPid());
-            demands = new ArrayList<>();
             for (Demand demand : list) {
                 Point point = pointService.findById(demand.getPid());
-                String pointName = point.getTitle();
+//                String pointName = point.getTitle();
                 User owner = userService.findById(point.getUid());
                 String ownerName = owner.getUsername();
                 String ownerPhone = owner.getPhone();
@@ -71,13 +69,15 @@ public class UserDemandsController {
                 demand.setHelpDetail("");
                 demand.setHid(-1);
                 demand.setReviewHelpDetail("");
-                demands.add(new UserDemand(demand, pointName, ownerName, ownerPhone, helperName, helperPhone));
+                demands.add(new UserDemand(demand, ownerName, ownerPhone, helperName, helperPhone, point));
             }
         }
-
-        PageInfo pageInfo = new PageInfo<>(list);
-        pageInfo.setList(demands);
-        return ResultGenerator.genSuccessResult(pageInfo);
+        PageInfo pageInfo1 = new PageInfo<>(demands);
+//        pageInfo1.setList(list);
+//        PageInfo pageInfo = new PageInfo<>(list);
+        logger.info("demands: {}", demands.size());
+//        pageInfo1.setList(demands);
+        return ResultGenerator.genSuccessResult(pageInfo1);
     }
 
     @DeleteMapping("/{id}")

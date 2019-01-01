@@ -40,6 +40,7 @@ public class AdminUserController {
             @ApiImplicitParam(name = "page", value = "查询页码", paramType = "query", dataType = "Integer", defaultValue = "0"),
             @ApiImplicitParam(name = "size", value = "每页数据量", paramType = "query", dataType = "Integer", defaultValue = "0")
     })
+    @Authorization(auth = "admin")
     public Result<PageInfo<User>> list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
         List<User> list = userService.findAll();
@@ -76,7 +77,7 @@ public class AdminUserController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "user", value = "更新的user实例", paramType = "body", dataType = "User", required = true)
     })
-    @Authorization
+    @Authorization(auth = "admin")
     public Result update(@RequestBody User user, @RequestParam int id, @CurrentUser @ApiIgnore User loginUser) {
         user.setUid(id);
         if (loginUser.getUid().equals(user.getUid())) {
@@ -93,6 +94,7 @@ public class AdminUserController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "查询的id", paramType = "path", required = true, dataType = "Integer", defaultValue = "0")
     })
+    @Authorization(auth = "admin")
     public Result<User> detail(@PathVariable Integer id) {
         User user = userService.findById(id);
         return ResultGenerator.genSuccessResult(user);

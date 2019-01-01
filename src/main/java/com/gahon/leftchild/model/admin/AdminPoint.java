@@ -13,6 +13,8 @@ public class AdminPoint extends Point {
     @ApiModelProperty(value = "负责人uid")
     private String username;
 
+    public AdminPoint() {
+    }
 
     public AdminPoint(String username, Point point) {
         super(point.getPid(),point.getUid(),point.getTitle(),point.getProvince(),

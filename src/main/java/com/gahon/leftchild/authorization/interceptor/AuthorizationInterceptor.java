@@ -58,10 +58,28 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 //                }
 //            }
             String token = request.getHeader(Constants.AUTHORIZATION);
+            if ("all".equals(authorization.auth())) {
+                User user = null;
+                //验证token
+                if (!StringUtils.isEmpty(token)) {
+                    //验证JWT的签名，返回CheckResult对象
+                    CheckResult checkResult = JwtUtils.validateJWT(token);
+                    if (checkResult.isSuccess()) {
+                        //如果token验证成功，将token对应的用户id存在request中，便于之后注入
+                        Integer currentUserId = Integer.parseInt(checkResult.getClaims().getId());
+                        if (!currentUserId.equals(-1)) {
+                            user = userService.findById(currentUserId);
+                        }
+                    }
+                }
+                request.setAttribute(Constants.CURRENT_USER, user);
+                request.setAttribute("ALLOW", true);
+                return true;
+            }
             //验证token
             if (StringUtils.isEmpty(token)) {
                 logger.info("验证失败，token为空");
-                responseResult(response, ResultGenerator.genFailResult(ResultCode.WRONG_TOKEN,"请先登录"));
+                responseResult(response, ResultGenerator.genFailResult(ResultCode.WRONG_TOKEN, "请先登录"));
                 return false;
             } else {
                 //验证JWT的签名，返回CheckResult对象
@@ -88,12 +106,12 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
                         // 签名验证不通过
                         case Constants.JWT_ERRCODE_FAIL:
                             logger.info("签名验证不通过");
-                            responseResult(response, ResultGenerator.genFailResult(ResultCode.WRONG_TOKEN,"签名验证不通过"));
+                            responseResult(response, ResultGenerator.genFailResult(ResultCode.WRONG_TOKEN, "签名验证不通过"));
                             break;
                         // 签名过期，返回过期提示码
                         case Constants.JWT_ERRCODE_EXPIRE:
                             logger.info("签名过期");
-                            responseResult(response, ResultGenerator.genFailResult(ResultCode.WRONG_TOKEN,"签名过期"));
+                            responseResult(response, ResultGenerator.genFailResult(ResultCode.WRONG_TOKEN, "签名过期"));
                             break;
                         default:
                             break;
@@ -104,6 +122,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
         } else {
             return true;
         }
+
     }
 
 

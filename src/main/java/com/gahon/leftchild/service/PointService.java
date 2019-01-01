@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface PointService extends Service<Point> {
 
-    List<Point> findPointsByCity(String city);
+    List<Point> findByProvince(String province);
 
     List<Point> findPointsByUid(Integer uid);
 

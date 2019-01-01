@@ -30,4 +30,11 @@ public class DemandServiceImpl extends AbstractService<Demand> implements Demand
         example.createCriteria().andLike("pid", pid.toString());
         return demandMapper.selectByExample(example);
     }
+
+    @Override
+    public List<Demand> findByStatus(Integer status) {
+        Example example = new Example(Demand.class);
+        example.createCriteria().andLike("status", status.toString());
+        return demandMapper.selectByExample(example);
+    }
 }

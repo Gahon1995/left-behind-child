@@ -38,9 +38,12 @@ public class CurrentUserMethodArgumentResolver implements HandlerMethodArgumentR
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         //取出鉴权时存入的登录用户Id
         User currentUser = (User) webRequest.getAttribute(Constants.CURRENT_USER, RequestAttributes.SCOPE_REQUEST);
+        Boolean allow = (Boolean) webRequest.getAttribute("ALLOW", RequestAttributes.SCOPE_REQUEST);
         if (currentUser != null) {
             //从数据库中查询并返回
             return currentUser;
+        } else if (allow != null && allow) {
+            return null;
         }
         throw new MissingServletRequestPartException(Constants.CURRENT_USER);
     }

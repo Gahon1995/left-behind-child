@@ -1,5 +1,6 @@
 package com.gahon.leftchild.controller.admin;
 
+import com.gahon.leftchild.authorization.annotation.Authorization;
 import com.gahon.leftchild.core.Result;
 import com.gahon.leftchild.core.ResultGenerator;
 import com.gahon.leftchild.model.Demand;
@@ -41,6 +42,7 @@ public class AdminDemandController {
             @ApiImplicitParam(name = "page", value = "查询页码", paramType = "query", dataType = "Integer", defaultValue = "0"),
             @ApiImplicitParam(name = "size", value = "每页数据量", paramType = "query", dataType = "Integer", defaultValue = "0")
     })
+    @Authorization(auth = "admin")
     public Result<PageInfo> list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
         List<Demand> list = demandService.findAll();
@@ -55,7 +57,7 @@ public class AdminDemandController {
             }
             demands.add(new AdminDemand(title,owner,helper,demand));
         }
-        PageInfo pageInfo = new PageInfo<>(list);
+        PageInfo pageInfo = new PageInfo<>();
         pageInfo.setList(demands);
         return ResultGenerator.genSuccessResult(pageInfo);
     }
@@ -65,6 +67,7 @@ public class AdminDemandController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "demand", value = "待添加的demand实例", paramType = "body", dataType = "Demand", required = true)
     })
+    @Authorization(auth = "admin")
     public Result add(@RequestBody Demand demand) {
         demandService.save(demand);
         return ResultGenerator.genSuccessResult();
@@ -75,6 +78,7 @@ public class AdminDemandController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "查询的id", paramType = "path", required = true, dataType = "Integer"),
     })
+    @Authorization(auth = "admin")
     public Result delete(@PathVariable Integer id) {
 //        demandService.deleteById(id);
         return ResultGenerator.genSuccessResult();
@@ -86,6 +90,7 @@ public class AdminDemandController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "demand", value = "更新的demand实例", paramType = "body", dataType = "Demand", required = true)
     })
+    @Authorization(auth = "admin")
     public Result update(@RequestBody Demand demand) {
         demandService.update(demand);
         return ResultGenerator.genSuccessResult();
@@ -97,6 +102,7 @@ public class AdminDemandController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "查询的id", paramType = "path", required = true, dataType = "Integer", defaultValue = "0")
     })
+    @Authorization(auth = "admin")
     public Result<Demand> detail(@PathVariable Integer id) {
         Demand demand = demandService.findById(id);
         return ResultGenerator.genSuccessResult(demand);

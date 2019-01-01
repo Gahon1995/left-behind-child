@@ -28,9 +28,9 @@ public class PointServiceImpl extends AbstractService<Point> implements PointSer
     private PointMapper pointMapper;
 
     @Override
-    public List<Point> findPointsByCity(String city) {
+    public List<Point> findByProvince(String province) {
         Example example = new Example(Point.class);
-        example.createCriteria().andLike("city", city.toLowerCase() + "%");
+        example.createCriteria().andLike("province", province.toLowerCase() + "%");
         return pointMapper.selectByExample(example);
     }
 

@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -75,5 +76,17 @@ public class LoginController {
         view.addObject("user", user);
         view.addObject("avatar", "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
         return ResultGenerator.genSuccessResult(view.getModel());
+    }
+
+    @PostMapping("/register")
+    public Result register(@RequestBody User user) {
+        if (StringUtils.isEmpty(user.getUsername()) ||
+                StringUtils.isEmpty(user.getPassword()) ||
+                StringUtils.isEmpty(user.getPhone()) ||
+                StringUtils.isEmpty(user.getEmail())) {
+            return ResultGenerator.genFailResult("请填入所有必填项");
+        }
+        userService.save(user);
+        return ResultGenerator.genSuccessResult("注册成功");
     }
 }

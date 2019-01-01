@@ -1,5 +1,6 @@
 package com.gahon.leftchild.controller.admin;
 
+import com.gahon.leftchild.authorization.annotation.Authorization;
 import com.gahon.leftchild.core.Result;
 import com.gahon.leftchild.core.ResultCode;
 import com.gahon.leftchild.core.ResultGenerator;
@@ -21,8 +22,8 @@ import java.util.Map;
 /**
  * @author han
  */
-@RestController
-@CrossOrigin
+//@RestController
+//@CrossOrigin
 public class AdminLoginController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Resource
@@ -33,6 +34,7 @@ public class AdminLoginController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "user", value = "登录用户名以及密码", paramType = "body", dataType = "BaseUser", required = true),
     })
+    @Authorization(auth = "admin")
     public Result adminLogin(@RequestBody BaseUser user) {
         String username = user.getUsername();
         String password = user.getPassword();
@@ -51,12 +53,13 @@ public class AdminLoginController {
 
     @GetMapping("/admin/logout")
     @ApiOperation(value = "注销", notes = "用户登录操作", httpMethod = "GET")
-//    @Authorization(auth = "admin")
+    @Authorization(auth = "admin")
     public Result adminLogout() {
         return ResultGenerator.genSuccessResult("注销成功");
     }
 
     @GetMapping("/admin/info")
+    @Authorization(auth = "admin")
     public Result info(){
         ModelAndView view = new ModelAndView();
         view.addObject("name", "admin");

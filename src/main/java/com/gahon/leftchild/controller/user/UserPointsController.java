@@ -5,12 +5,14 @@ import com.gahon.leftchild.authorization.annotation.CurrentUser;
 import com.gahon.leftchild.controller.admin.AdminPointController;
 import com.gahon.leftchild.core.Result;
 import com.gahon.leftchild.core.ResultGenerator;
+import com.gahon.leftchild.model.LatLng;
 import com.gahon.leftchild.model.Point;
 import com.gahon.leftchild.model.PointList;
 import com.gahon.leftchild.model.User;
 import com.gahon.leftchild.model.admin.AdminPoint;
 import com.gahon.leftchild.service.PointService;
 import com.gahon.leftchild.service.UserService;
+import com.gahon.leftchild.utils.HttpUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
@@ -119,8 +121,17 @@ public class UserPointsController {
             return ResultGenerator.genFailResult("更新id不匹配");
         }
         point.setState(0);
-        logger.info("point: {}", point);
-        logger.info("point: {}", point.getPid());
+        LatLng latLng = HttpUtils.getlnglat(point.getProvince()
+                + point.getCity()
+                + point.getDistrict()
+                + point.getAddress(), point.getProvince());
+        if (latLng != null) {
+            point.setLat(String.valueOf(latLng.getResult().getLocation().getLat()));
+            point.setLng(String.valueOf(latLng.getResult().getLocation().getLng()));
+            logger.info("lat: {}, lng: {}", point.getLat(), point.getLng());
+        }
+//        logger.info("point: {}", point);
+//        logger.info("point: {}", point.getPid());
         if (point.getPid() == null) {
             logger.info("add");
             pointService.save(point);

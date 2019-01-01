@@ -47,6 +47,7 @@ public class AdminPointController {
             @ApiImplicitParam(name = "page", value = "查询页码", paramType = "query", dataType = "Integer", defaultValue = "0"),
             @ApiImplicitParam(name = "size", value = "每页数据量", paramType = "query", dataType = "Integer", defaultValue = "0")
     })
+    @Authorization(auth = "admin")
     public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
 //        logger.info("page: {},size:{}",page,size);
@@ -58,7 +59,7 @@ public class AdminPointController {
             points.add(new AdminPoint(username ,point));
         }
 //        logger.info("points total: {}",points.size());
-        PageInfo pageInfo = new PageInfo<>(list);
+        PageInfo pageInfo = new PageInfo<>();
         pageInfo.setList(points);
         return ResultGenerator.genSuccessResult(pageInfo);
     }
@@ -68,6 +69,7 @@ public class AdminPointController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "point", value = "待添加的point实例", paramType = "body", dataType = "Point", required = true)
     })
+    @Authorization(auth = "admin")
     public Result add(@RequestBody Point point) {
         pointService.save(point);
         return ResultGenerator.genSuccessResult();
@@ -88,6 +90,7 @@ public class AdminPointController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "point", value = "更新的point实例", paramType = "body", dataType = "Point", required = true)
     })
+    @Authorization(auth = "admin")
     public Result update(@RequestBody Point point) {
         pointService.update(point);
         return ResultGenerator.genSuccessResult();
@@ -98,7 +101,7 @@ public class AdminPointController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "查询的id", paramType = "path", required = true, dataType = "Integer", defaultValue = "0")
     })
-    @Authorization
+    @Authorization(auth = "admin")
     public Result<Point> detail(@PathVariable Integer id, @CurrentUser @ApiIgnore User user) {
         logger.info("当前登录的用户： {}", user);
         Point point = pointService.findById(id);
