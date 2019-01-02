@@ -18,6 +18,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -46,7 +47,7 @@ public class UserDemandsController {
     public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size, @ApiIgnore @CurrentUser User user) {
         PageHelper.startPage(page, size);
         List<Point> points = pointService.findPointsByUid(user.getUid());
-        List<Demand> list = null;
+        List<Demand> list;
         List<UserDemand> demands = new ArrayList<>();
         for (Point p : points) {
             if (p.getState() != 1) {
@@ -72,6 +73,23 @@ public class UserDemandsController {
                 demands.add(new UserDemand(demand, ownerName, ownerPhone, helperName, helperPhone, point));
             }
         }
+
+        List<Demand> helpDemands = demandService.findByHid(user.getUid());
+        for (Demand demand : helpDemands) {
+            Point point = pointService.findById(demand.getPid());
+//                String pointName = point.getTitle();
+            User owner = userService.findById(point.getUid());
+            String ownerName = owner.getUsername();
+            String ownerPhone = owner.getPhone();
+            String helperName = "";
+            String helperPhone = "";
+            User helper = userService.findById(demand.getHid());
+            helperName = helper.getUsername();
+            helperPhone = helper.getPhone();
+            demands.add(new UserDemand(demand, ownerName, ownerPhone, helperName, helperPhone, point));
+        }
+
+
         PageInfo pageInfo1 = new PageInfo<>(demands);
 //        pageInfo1.setList(list);
 //        PageInfo pageInfo = new PageInfo<>(list);
@@ -118,5 +136,31 @@ public class UserDemandsController {
             }
         }
         return ResultGenerator.genFailResult("更新数据错误");
+    }
+
+    @PostMapping("/apply")
+    @ApiOperation(value = "申请数据", notes = "申请数据", httpMethod = "POST")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "demand", value = "更新的demand实例", paramType = "body", dataType = "Demand", required = true)
+    })
+    @Authorization
+    public Result applyDemand(@RequestBody Demand newDemand, @ApiIgnore @CurrentUser User user) {
+        Demand demand = demandService.findById(newDemand.getDid());
+        if (demand == null) {
+            return ResultGenerator.genFailResult("所申请的需求id不存在");
+        }
+        if (StringUtils.isEmpty(newDemand.getHelpDetail())) {
+            ResultGenerator.genFailResult("未输入帮扶说明");
+        }
+        if (!user.getUid().equals(newDemand.getHid())) {
+            ResultGenerator.genFailResult("ID不匹配");
+        }
+        demand.setHid(user.getUid());
+        demand.setHelpDetail(newDemand.getHelpDetail());
+        demand.setHelpState(0);
+        demand.setReviewHelpDetail("");
+        logger.info("apply Demand");
+        demandService.update(demand);
+        return ResultGenerator.genSuccessResult("申请成功");
     }
 }

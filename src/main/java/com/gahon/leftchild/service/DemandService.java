@@ -13,5 +13,7 @@ import java.util.List;
 public interface DemandService extends Service<Demand> {
     List<Demand> findDemandsByPid(Integer uid);
 
+    List<Demand> findByHid(Integer hid);
+
     List<Demand> findByStatus(Integer status);
 }

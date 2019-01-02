@@ -23,6 +23,12 @@ public class DemandServiceImpl extends AbstractService<Demand> implements Demand
     @Resource
     private DemandMapper demandMapper;
 
+    @Override
+    public List<Demand> findByHid(Integer hid) {
+        Example example = new Example(Demand.class);
+        example.createCriteria().andLike("hid", hid.toString());
+        return demandMapper.selectByExample(example);
+    }
 
     @Override
     public List<Demand> findDemandsByPid(Integer pid) {
