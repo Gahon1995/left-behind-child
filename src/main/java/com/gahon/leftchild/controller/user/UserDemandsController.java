@@ -146,6 +146,10 @@ public class UserDemandsController {
     @Authorization
     public Result applyDemand(@RequestBody Demand newDemand, @ApiIgnore @CurrentUser User user) {
         Demand demand = demandService.findById(newDemand.getDid());
+        Point point = pointService.findById(newDemand.getPid());
+        if (point.getUid().equals(newDemand.getHid())) {
+            return ResultGenerator.genFailResult("禁止申请自己发起的需求");
+        }
         if (demand == null) {
             return ResultGenerator.genFailResult("所申请的需求id不存在");
         }

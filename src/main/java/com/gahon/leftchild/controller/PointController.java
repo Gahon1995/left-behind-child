@@ -45,12 +45,14 @@ public class PointController {
 
     @GetMapping
     @ApiOperation(value = "获取全部", notes = "返回分页过后的数据", httpMethod = "GET")
-    @ApiImplicitParams({
+    @ApiImplicitParams(value = {
             @ApiImplicitParam(name = "page", value = "查询页码", paramType = "query", dataType = "Integer", defaultValue = "0"),
-            @ApiImplicitParam(name = "size", value = "每页数据量", paramType = "query", dataType = "Integer", defaultValue = "0")
+            @ApiImplicitParam(name = "size", value = "每页数据量", paramType = "query", dataType = "Integer", defaultValue = "0"),
+            @ApiImplicitParam(name = "province", value = "每页数据量", paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "city", value = "每页数据量", paramType = "query", dataType = "String")
     })
     @Authorization(auth = "all")
-    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size, @ApiIgnore @CurrentUser User user) {
+    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size, @RequestParam(defaultValue = "") String province, @RequestParam(defaultValue = "") String city, @ApiIgnore @CurrentUser User user) {
         PageHelper.startPage(page, size);
         List<Demand> list = demandService.findByStatus(1);
         List<UserDemand> demands = new ArrayList<>();
@@ -58,6 +60,15 @@ public class PointController {
             if (demand.getStatus().equals(1)) {
                 Point point = pointService.findById(demand.getPid());
 //                String pointName = point.getTitle();
+                if (!("".equals(province) || "全部".equals(province))) {
+                    if (!point.getProvince().equals(province)) {
+                        continue;
+                    } else if (!("".equals(city) || "全部".equals(city) || "市辖区".equals(city))) {
+                        if (!point.getCity().equals(city)) {
+                            continue;
+                        }
+                    }
+                }
                 User owner = userService.findById(point.getUid());
                 String ownerName = owner.getUsername();
                 String ownerPhone = "135xxxx4931";
